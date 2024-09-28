@@ -21,14 +21,36 @@ test("Hit again works", () => {
   expect(shipInstance.hit()).toBe(2);
 });
 
-// test("(Sunken status) Number of hits less than ship length", () =>
+test("(Sunken status) Number of hits less than ship length", () => {
+  let shipInstance = ship();
+  shipInstance.length = 3;
 
-// );
+  shipInstance.hit();
+  shipInstance.hit();
+  expect(shipInstance.isSunk()).toBeFalsy();
+});
 
-// test("(Sunken status) Number of hits greater than ship length", () =>
+test("(Sunken status) Number of hits greater than ship length", () => {
+  let shipInstance = ship();
 
-// );
+  shipInstance.length = 3;
 
-// test("(Sunken status) Number of hits equal to ship length", () =>
+  shipInstance.hit();
+  shipInstance.hit();
+  shipInstance.hit();
+  shipInstance.hit();
+  shipInstance.hit();
 
-// );
+  expect(shipInstance.isSunk).toThrowError();
+});
+
+test("(Sunken status) Number of hits equal to ship length", () => {
+  let shipInstance = ship();
+
+  shipInstance.length = 3;
+  shipInstance.hit();
+  shipInstance.hit();
+  shipInstance.hit();
+
+  expect(shipInstance.isSunk()).toBeTruthy();
+});
