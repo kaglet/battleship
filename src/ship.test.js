@@ -10,6 +10,12 @@ test("(Has specified basic properties/functions) Length, sunken status, and numb
   expect(shipInstance).toHaveProperty("hit");
 });
 
+test("(Has placement properties: x, y", () => {
+  let shipInstance = ship();
+  expect(shipInstance).toHaveProperty("x");
+  expect(shipInstance).toHaveProperty("y");
+});
+
 test("First hit works", () => {
   let shipInstance = ship();
   expect(shipInstance.hit()).toBe(1);
@@ -54,3 +60,10 @@ test("(Sunken status) Number of hits equal to ship length", () => {
 
   expect(shipInstance.isSunk()).toBeTruthy();
 });
+
+// test("Modifying and getting private variables", () => {
+//   let shipInstance = ship();
+
+//   expect()
+// }
+// )
