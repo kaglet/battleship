@@ -1,7 +1,7 @@
 let ship = () => {
   let length = 0;
   let numHits = 0;
-  let x, y;
+  let orientation;
 
   const isSunk = function isSunk() {
     if (numHits === length) {
@@ -25,10 +25,9 @@ let ship = () => {
   return {
     length,
     numHits,
-    x,
-    y,
     isSunk,
     hit,
+    orientation,
     get length() {
       return length;
     },
@@ -41,17 +40,11 @@ let ship = () => {
     set numHits(val) {
       numHits = val;
     },
-    get x() {
-      return x;
+    get orientation() {
+      return orientation;
     },
-    set x(val) {
-      x = val;
-    },
-    get y() {
-      return y;
-    },
-    set y(val) {
-      y = val;
+    set orientation(val) {
+      orientation = val;
     },
   };
 };

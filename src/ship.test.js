@@ -8,12 +8,7 @@ test("(Has specified basic properties/functions) Length, sunken status, and numb
   expect(shipInstance).toHaveProperty("numHits");
   expect(shipInstance).toHaveProperty("isSunk");
   expect(shipInstance).toHaveProperty("hit");
-});
-
-test("(Has placement properties: x, y", () => {
-  let shipInstance = ship();
-  expect(shipInstance).toHaveProperty("x");
-  expect(shipInstance).toHaveProperty("y");
+  expect(shipInstance).toHaveProperty("orientation");
 });
 
 test("First hit works", () => {
