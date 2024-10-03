@@ -55,10 +55,3 @@ test("(Sunken status) Number of hits equal to ship length", () => {
 
   expect(shipInstance.isSunk()).toBeTruthy();
 });
-
-// test("Modifying and getting private variables", () => {
-//   let shipInstance = ship();
-
-//   expect()
-// }
-// )

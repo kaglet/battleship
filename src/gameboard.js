@@ -22,10 +22,19 @@ let gameboard = () => {
     }
   };
 
+  const receiveAttack = function (x, y) {
+    if (!grid[x][y]) {
+      grid[x][y] = "M";
+    } else {
+      grid[x][y].hit = true;
+    }
+  };
+
   return {
     size,
     grid,
     placeShip,
+    receiveAttack,
     get size() {
       return size;
     },

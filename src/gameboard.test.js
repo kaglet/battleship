@@ -54,14 +54,15 @@ test("Place ship on valid grid space horizontally", () => {
   }
 });
 
-test("Take hit on unoccupied spot", () => {
+test("Receive attack on unoccupied spot", () => {
   let gameboardInstance = gameboard();
   let x = 3;
   let y = 7;
-  expect(gameboardInstance.takeHit(x, y)).toBe("M");
+  gameboardInstance.receiveAttack(x, y);
+  expect(gameboardInstance.grid[x][y]).toBe("M");
 });
 
-test("Take hit on occupied spot", () => {
+test("Receive attack on occupied spot", () => {
   let gameboardInstance = gameboard();
   let shipInstance = ship();
   shipInstance.length = 4;
@@ -70,6 +71,9 @@ test("Take hit on occupied spot", () => {
   let y = 7;
 
   gameboardInstance.placeShip(shipInstance, x, y);
-  gameboardInstance.takeHit(x, y);
-  expect(gameboardInstance.grid[x][y].hit).toBe(true);
+  let oldHitCount = gameboardInstance.grid[x][y].numHits;
+  gameboardInstance.receiveAttack(x, y);
+  expect(gameboardInstance.grid[x][y].numHits).toBe(oldHitCount++);
 });
+
+// Check if all individual ships on board are sunk
