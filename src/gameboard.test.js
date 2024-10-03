@@ -22,7 +22,7 @@ test("Place ship on valid grid space vertically", () => {
   let x = 1;
   let y = 4;
   shipInstance.length = 4;
-  shipInstance.orientation = "V";
+  shipInstance.setOrientationVertical();
   gameboardInstance.placeShip(shipInstance, x, y);
 
   for (let j = y; j < shipInstance.length; j++) {
@@ -41,7 +41,7 @@ test("Place ship on valid grid space horizontally", () => {
   let x = 1;
   let y = 4;
   shipInstance.length = 4;
-  shipInstance.orientation = "H";
+  shipInstance.setOrientationHorizontal();
   gameboardInstance.placeShip(shipInstance, x, y);
 
   for (let i = x; i < shipInstance.length; i++) {
@@ -113,7 +113,7 @@ test("Report when all ships sunken", () => {
 
   shipInstance1.length = 3;
   shipInstance2.length = 2;
-  shipInstance2.orientation = "V";
+  shipInstance2.setOrientationVertical();
 
   gameboardInstance.placeShip(shipInstance1, 0, 5);
   gameboardInstance.placeShip(shipInstance2, 4, 6);

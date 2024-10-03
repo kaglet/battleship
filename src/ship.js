@@ -43,8 +43,11 @@ let ship = () => {
     get orientation() {
       return orientation;
     },
-    set orientation(val) {
-      orientation = val;
+    setOrientationVertical() {
+      orientation = "V";
+    },
+    setOrientationHorizontal() {
+      orientation = "H";
     },
   };
 };
