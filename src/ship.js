@@ -1,7 +1,7 @@
 let ship = () => {
   let length = 0;
   let numHits = 0;
-  let orientation;
+  let orientation = "H";
 
   const isSunk = function isSunk() {
     if (numHits === length) {

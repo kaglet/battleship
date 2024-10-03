@@ -9,9 +9,16 @@ let gameboard = () => {
     }
   }
 
+  // assumes x is constant and y is changing so vertical orientation
   const placeShip = function (ship, x, y) {
-    for (let i = y; i < y + ship.length; i++) {
-      grid[x][i] = ship;
+    if (ship.orientation === "V") {
+      for (let j = y; j < y + ship.length; j++) {
+        grid[x][j] = ship;
+      }
+    } else if (ship.orientation === "H") {
+      for (let i = x; i < x + ship.length; i++) {
+        grid[i][y] = ship;
+      }
     }
   };
 

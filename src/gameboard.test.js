@@ -16,35 +16,60 @@ test("Board initializes with correct specified size", () => {
   expect(gameboardInstance.grid).toHaveProperty("length", 10);
 });
 
-test("Place ship on valid grid space", () => {
+test("Place ship on valid grid space vertically", () => {
   let shipInstance = ship();
   let gameboardInstance = gameboard();
   let x = 1;
   let y = 4;
   shipInstance.length = 4;
+  shipInstance.orientation = "V";
   gameboardInstance.placeShip(shipInstance, x, y);
-  for (let i = x; i < 2; i++) {
-    for (let j = y; j < shipInstance.length; j++) {
-      const element = gameboardInstance.grid[i];
-      expect(element).toHaveProperty("length");
-      expect(element).toHaveProperty("numHits");
-      expect(element).toHaveProperty("isSunk");
-      expect(element).toHaveProperty("hit");
-      expect(element).toHaveProperty("orientation");
-    }
+
+  for (let j = y; j < shipInstance.length; j++) {
+    const element = gameboardInstance.grid[x][j];
+    expect(element).toHaveProperty("length");
+    expect(element).toHaveProperty("numHits");
+    expect(element).toHaveProperty("isSunk");
+    expect(element).toHaveProperty("hit");
+    expect(element).toHaveProperty("orientation");
   }
 });
 
-// TODO: Produce out of bounds error and do not place. I.e. reject placement completely if an out of bounds is detected using the length as a guide.
-// TODO: There will never be x cells greater than 10 so I do not think you have to ever catch this right?
-test("Place ship on invalid grid space", () => {
+test("Place ship on valid grid space horizontally", () => {
   let shipInstance = ship();
   let gameboardInstance = gameboard();
   let x = 1;
-  let y = 10;
+  let y = 4;
   shipInstance.length = 4;
-  expect(() => gameboardInstance.placeShip(shipInstance, x, y)).toThrow(
-    "Ship is out of bounds and cannot be placed"
-  );
-  // Placement controller should place it in previous spot
+  shipInstance.orientation = "H";
+  gameboardInstance.placeShip(shipInstance, x, y);
+
+  for (let i = x; i < shipInstance.length; i++) {
+    const element = gameboardInstance.grid[i][y];
+    expect(element).toHaveProperty("length");
+    expect(element).toHaveProperty("numHits");
+    expect(element).toHaveProperty("isSunk");
+    expect(element).toHaveProperty("hit");
+    expect(element).toHaveProperty("orientation");
+  }
+});
+
+test("Take hit on unoccupied spot", () => {
+  let gameboardInstance = gameboard();
+  let x = 3;
+  let y = 7;
+  expect(gameboardInstance.takeHit(x, y)).toBe("M");
+});
+
+test("Take hit on occupied spot", () => {
+  let gameboardInstance = gameboard();
+  let shipInstance = ship();
+  shipInstance.length = 4;
+
+  let x = 3;
+  let y = 7;
+
+  gameboardInstance.placeShip(shipInstance, x, y);
+  gameboardInstance.takeHit(x, y);
+  expect(gameboardInstance.grid[x][y].hit).toBe(true);
 });
