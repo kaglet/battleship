@@ -1,0 +1,16 @@
+const restaurantImg = require("../../../assets/images/ahtziri-lagarde-4_FsMDmCc6A-unsplash.jpg");
+
+const pictureDisplay = () => {
+  let shipsDisplay = document.createElement("section");
+  shipsDisplay.classList.add("ships");
+
+  let ship1 = document.createElement("img");
+  ship1.style.backgroundImage = `url("${restaurantImg}")`;
+  ship1.classList.add("ship");
+
+  shipsDisplay.append(ship1);
+
+  return shipsDisplay;
+};
+
+module.exports = pictureDisplay;
