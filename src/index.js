@@ -1,8 +1,7 @@
-function component() {
-  const element = 4;
+import "./styles/styles.css";
+const main = require("./ui_management/components/body/main");
 
-  return element;
-}
-
-console.log("hello");
-module.exports = component;
+const init = (() => {
+  let body = document.querySelector("body");
+  body.appendChild(main());
+})();

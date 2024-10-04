@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: bahianita; 
-  src: url(./assets/fonts/Bahianita/Bahianita-Regular.ttf);
+  src: url(../assets/fonts/Bahianita/Bahianita-Regular.ttf);
   font-weight: 600;
   font-style: normal;
 }
@@ -24,8 +24,20 @@
 body {
   font-family: var(--main-font-family);
   min-height: 100vh;
+  padding: 0.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.test {
-    color: red;
+.board {
+  display: grid;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+  width: min-content;
+  height: 300px;
+  width: 300px;
+}
+
+.cell {
+  outline: 2px solid whitesmoke;
+  background-color: rebeccapurple;
 }
