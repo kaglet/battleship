@@ -1,5 +1,5 @@
 function component() {
-  const element = 3;
+  const element = 4;
 
   return element;
 }

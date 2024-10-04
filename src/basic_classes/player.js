@@ -2,11 +2,7 @@ const gameboard = require("./gameboard");
 
 const player = () => {
   let name;
-<<<<<<< HEAD
   let playerGameboard = gameboard();
-=======
-  let playerGameboard;
->>>>>>> 123d8fc272278b819b35b34d48eb30aa11b1939d
   let type;
 
   return {
