@@ -15,7 +15,7 @@ const dragDropController = (() => {
   let ship1;
   const init = function () {
     ship1 = document.querySelector("img");
-    ship1.addEventListener("mousedown", () => {
+    ship1.addEventListener("mousedown", (e) => {
       let ship1CopyToDrag = document.createElement("img");
       ship1CopyToDrag.style.backgroundImage = `url("${restaurantImg}")`;
       ship1CopyToDrag.classList.add("ship", "dragged");
@@ -28,7 +28,7 @@ const dragDropController = (() => {
       body.appendChild(ship1CopyToDrag);
 
       // TODO: place it at a position when it first appears and as it is dragged it will move
-      ship1CopyToDrag.style.left = ship1.style.left + 40 + "px";
+      ship1CopyToDrag.style.left = ship1.style.left + 100 + "px";
       ship1CopyToDrag.style.top = ship1.style.top + 40 + "px";
     });
   };
