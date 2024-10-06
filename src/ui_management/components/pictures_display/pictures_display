@@ -1,6 +1,6 @@
 const restaurantImg = require("../../../assets/images/ahtziri-lagarde-4_FsMDmCc6A-unsplash.jpg");
 
-const pictureDisplay = () => {
+const shipSelectionPanel = () => {
   let shipsDisplay = document.createElement("section");
   shipsDisplay.classList.add("ships");
 
@@ -13,4 +13,4 @@ const pictureDisplay = () => {
   return shipsDisplay;
 };
 
-module.exports = pictureDisplay;
+module.exports = shipSelectionPanel;

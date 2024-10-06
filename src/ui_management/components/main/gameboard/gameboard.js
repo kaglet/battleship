@@ -1,3 +1,4 @@
+const shipSelectionPanel = require("../../pictures_display/pictures_display");
 const cell = require("./cell/cell.js");
 
 const gameboard = () => {
@@ -13,6 +14,8 @@ const gameboard = () => {
       boardDisplay.appendChild(cellDisplay);
     }
   }
+
+  boardDisplay.appendChild(shipSelectionPanel());
 
   return boardDisplay;
 };

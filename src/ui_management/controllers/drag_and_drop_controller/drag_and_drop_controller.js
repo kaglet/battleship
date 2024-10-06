@@ -64,11 +64,11 @@ const dragDropController = (() => {
     let ship1CopyToDrag = document.createElement("img");
     ship1CopyToDrag.style.backgroundImage = ship1.style.backgroundImage;
     ship1CopyToDrag.classList.add("ship", "dragged");
-    ship1CopyToDrag.style.position = "absolute";
+    ship1CopyToDrag.style.position = "relative";
 
     // To know background image url of original ship and how much space it occupies
     draggableShip = ship1CopyToDrag;
-    draggableShip.style.pointerEvents = "none";
+    // draggableShip.style.pointerEvents = "none";
 
     isDown = true;
     offset = [ship1.offsetLeft - e.clientX, ship1.offsetTop - e.clientY];
@@ -84,10 +84,8 @@ const dragDropController = (() => {
     ship1CopyToDrag.style.top =
       window.scrollX + ship1.getBoundingClientRect().top + "px";
 
-    ship1CopyToDrag.addEventListener(
-      "mousemove",
-      (e) => moveDraggable(e, ship1CopyToDrag),
-      true
+    ship1CopyToDrag.addEventListener("mousemove", (e) =>
+      moveDraggable(e, ship1CopyToDrag)
     );
   };
 
