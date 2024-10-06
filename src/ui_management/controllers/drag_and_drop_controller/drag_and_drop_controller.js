@@ -16,12 +16,59 @@ const dragDropController = (() => {
   let ship1;
   let isDown = false;
   let offset = [0, 0];
+  let draggableShip;
+  let board;
+
+  const dropDraggeableDown = function (e) {
+    // TODO: place final copy of active ship down onto cell
+    // Condition is true only when isDown is true as there was a ship selected
+    console.log(e.target);
+    console.log("hi i am in board");
+    if (isDown === true) {
+      let shipDroppedCopy = document.createElement("img");
+      shipDroppedCopy.style.backgroundImage =
+        draggableShip.style.backgroundImage;
+      board.appendChild(shipDroppedCopy);
+      // TODO: append this element to the grid then give it an explicit placement whether it overlaps with other elements such as the cell
+      // TODO: to make the cell visible modify the opacity of the picture
+    }
+
+    isDown = false;
+  };
+
+  const deleteDraggable = function (e) {
+    e.stopPropagation();
+
+    console.log(e.target);
+    if (isDown === true) {
+      draggableShip.remove();
+    }
+
+    isDown = false;
+  };
+
+  const moveDraggable = function (e, ship1CopyToDrag) {
+    e.preventDefault();
+    if (isDown) {
+      mousePosition = {
+        x: e.clientX,
+        y: e.clientY,
+      };
+
+      ship1CopyToDrag.style.left = mousePosition.x + offset[0] + "px";
+      ship1CopyToDrag.style.top = mousePosition.y + offset[1] + "px";
+    }
+  };
 
   const createDraggableFromOriginal = function (e, ship1) {
     let ship1CopyToDrag = document.createElement("img");
-    ship1CopyToDrag.style.backgroundImage = `url("${restaurantImg}")`;
+    ship1CopyToDrag.style.backgroundImage = ship1.style.backgroundImage;
     ship1CopyToDrag.classList.add("ship", "dragged");
     ship1CopyToDrag.style.position = "absolute";
+
+    // To know background image url of original ship and how much space it occupies
+    draggableShip = ship1CopyToDrag;
+    // draggableShip.style.pointerEvents = "none";
 
     isDown = true;
     offset = [ship1.offsetLeft - e.clientX, ship1.offsetTop - e.clientY];
@@ -39,18 +86,7 @@ const dragDropController = (() => {
 
     ship1CopyToDrag.addEventListener(
       "mousemove",
-      function (e) {
-        e.preventDefault();
-        if (isDown) {
-          mousePosition = {
-            x: e.clientX,
-            y: e.clientY,
-          };
-
-          ship1CopyToDrag.style.left = mousePosition.x + offset[0] + "px";
-          ship1CopyToDrag.style.top = mousePosition.y + offset[1] + "px";
-        }
-      },
+      (e) => moveDraggable(e, ship1CopyToDrag),
       true
     );
   };
@@ -60,15 +96,15 @@ const dragDropController = (() => {
     ship1.addEventListener("mousedown", (e) =>
       createDraggableFromOriginal(e, ship1)
     );
+    board = document.querySelector(".board");
+
+    board.addEventListener("mouseup", dropDraggeableDown);
   };
 
-  document.addEventListener(
-    "mouseup",
-    function () {
-      isDown = false;
-    },
-    true
-  );
+  document.addEventListener("mouseup", deleteDraggable);
+  // will an arbitrary div element block the moveup listener on the grid. No right. Because all of the divs are not blocking the grid.
+  // But they do not have any events on them.
+  // The picture is not part of the grid. It is an element on top of it absolutely positioned
 
   return { init };
 })();

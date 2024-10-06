@@ -9,4 +9,14 @@ const init = (() => {
   mainDisplay.appendChild(pictureDisplay());
   body.appendChild(mainDisplay);
   dragDropController.init();
+
+  let div = document.createElement("div");
+  div.style.position = "absolute";
+  div.style.left = 100 + "px";
+  div.style.top = 100 + "px";
+  div.style.width = "100px";
+  div.style.height = "100px";
+  div.style.backgroundColor = "blue";
+
+  mainDisplay.appendChild(div);
 })();
