@@ -68,7 +68,7 @@ const dragDropController = (() => {
 
     // To know background image url of original ship and how much space it occupies
     draggableShip = ship1CopyToDrag;
-    // draggableShip.style.pointerEvents = "none";
+    draggableShip.style.pointerEvents = "none";
 
     isDown = true;
     offset = [ship1.offsetLeft - e.clientX, ship1.offsetTop - e.clientY];
