@@ -73,15 +73,14 @@ const dragDropController = (() => {
     isDown = true;
     offset = [ship1.offsetLeft - e.clientX, ship1.offsetTop - e.clientY];
 
+    // TODO: Can give initial starting position to this copy ship before it is moved even perhaps
     board.appendChild(ship1CopyToDrag);
 
     console.log(ship1);
     // Place it at a position when it first appears and as it is dragged it will move
     // Here it appears on screen directly on top of original pic
-    ship1CopyToDrag.style.left =
-      window.scrollY + ship1.getBoundingClientRect().left + "px";
-    ship1CopyToDrag.style.top =
-      window.scrollX + ship1.getBoundingClientRect().top + "px";
+    ship1CopyToDrag.style.left = ship1.getBoundingClientRect().left + "px";
+    ship1CopyToDrag.style.top = ship1.getBoundingClientRect().top + "px";
 
     ship1CopyToDrag.addEventListener("mousemove", (e) =>
       moveDraggable(e, ship1CopyToDrag)
