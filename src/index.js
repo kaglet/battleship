@@ -8,7 +8,7 @@ var div;
 var isDown = false;
 
 div = document.createElement("div");
-div.style.position = "absolute";
+div.style.position = "relative";
 div.style.left = "0px";
 div.style.top = "0px";
 div.style.width = "100px";
@@ -18,19 +18,19 @@ div.style.color = "blue";
 
 document.body.appendChild(div);
 
-// always keep the offset from the mousedown for when translating across the screen with the mousemove
-// account for the difference between the mouse position and div when moving it positively now to where the mouse is
-// we take the old mouse position therefore
-// preserve the distance between that and the original mouse down position
+// When the mouse is pressed down on the div
 div.addEventListener(
   "mousedown",
   function (e) {
     isDown = true;
+
+    // Calculate the offset between the div's current position and the mouse click position
     offset = [div.offsetLeft - e.clientX, div.offsetTop - e.clientY];
   },
   true
 );
 
+// When the mouse button is released
 document.addEventListener(
   "mouseup",
   function () {
@@ -39,15 +39,20 @@ document.addEventListener(
   true
 );
 
+// When the mouse is moved
 document.addEventListener(
   "mousemove",
   function (event) {
+    event.preventDefault();
+
     if (isDown) {
-      event.preventDefault();
+      // Get the current mouse position
       mousePosition = {
         x: event.clientX,
         y: event.clientY,
       };
+
+      // Set the new position of the div by applying the offset
       div.style.left = mousePosition.x + offset[0] + "px";
       div.style.top = mousePosition.y + offset[1] + "px";
     }
