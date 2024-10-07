@@ -50,13 +50,9 @@ const dragDropController = (() => {
   const moveDraggable = function (e, ship1CopyToDrag) {
     if (isDown) {
       e.preventDefault();
-      mousePosition = {
-        x: e.clientX,
-        y: e.clientY,
-      };
 
-      ship1CopyToDrag.style.left = mousePosition.x + offset[0] + "px";
-      ship1CopyToDrag.style.top = mousePosition.y + offset[1] + "px";
+      ship1CopyToDrag.style.left = e.clientX + offset[0] + "px";
+      ship1CopyToDrag.style.top = e.clientY + offset[1] + "px";
     }
   };
 
@@ -79,6 +75,7 @@ const dragDropController = (() => {
     console.log(ship1);
     // Place it at a position when it first appears and as it is dragged it will move
     // Here it appears on screen directly on top of original pic
+    // Note to self: By being in the same parent they can now be positioned correctly
     ship1CopyToDrag.style.left = ship1.getBoundingClientRect().left + "px";
     ship1CopyToDrag.style.top = ship1.getBoundingClientRect().top + "px";
 
