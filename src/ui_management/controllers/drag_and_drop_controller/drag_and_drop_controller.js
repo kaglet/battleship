@@ -48,8 +48,8 @@ const dragDropController = (() => {
   };
 
   const moveDraggable = function (e, ship1CopyToDrag) {
-    e.preventDefault();
     if (isDown) {
+      e.preventDefault();
       mousePosition = {
         x: e.clientX,
         y: e.clientY,
@@ -64,7 +64,7 @@ const dragDropController = (() => {
     let ship1CopyToDrag = document.createElement("img");
     ship1CopyToDrag.style.backgroundImage = ship1.style.backgroundImage;
     ship1CopyToDrag.classList.add("ship", "dragged");
-    ship1CopyToDrag.style.position = "absolute";
+    ship1CopyToDrag.style.position = "relative";
 
     // To know background image url of original ship and how much space it occupies
     draggableShip = ship1CopyToDrag;
