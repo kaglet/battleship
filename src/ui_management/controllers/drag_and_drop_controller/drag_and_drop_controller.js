@@ -29,6 +29,7 @@ const dragDropController = (() => {
       shipDroppedCopy.style.backgroundImage =
         draggableShip.style.backgroundImage;
       board.appendChild(shipDroppedCopy);
+      deleteDraggable(e);
       // TODO: append this element to the grid then give it an explicit placement whether it overlaps with other elements such as the cell
       // TODO: to make the cell visible modify the opacity of the picture
     }
