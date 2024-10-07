@@ -4,6 +4,7 @@ const cell = require("./cell/cell.js");
 const gameboard = () => {
   let boardDisplay = document.createElement("div");
   boardDisplay.classList.add("board");
+  boardDisplay.style.position = "relative";
 
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {

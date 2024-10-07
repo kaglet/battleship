@@ -2,7 +2,7 @@ const restaurantImg = require("../../../assets/images/ahtziri-lagarde-4_FsMDmCc6
 
 const shipSelectionPanel = () => {
   let shipsDisplay = document.createElement("section");
-  shipsDisplay.classList.add("ships");
+  shipsDisplay.classList.add("ships", "selection-panel");
 
   let ship1 = document.createElement("img");
   ship1.style.backgroundImage = `url("${restaurantImg}")`;
