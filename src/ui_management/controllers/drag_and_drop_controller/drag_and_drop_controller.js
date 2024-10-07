@@ -73,8 +73,7 @@ const dragDropController = (() => {
     isDown = true;
     offset = [ship1.offsetLeft - e.clientX, ship1.offsetTop - e.clientY];
 
-    let body = document.querySelector("body");
-    body.appendChild(ship1CopyToDrag);
+    board.appendChild(ship1CopyToDrag);
 
     console.log(ship1);
     // Place it at a position when it first appears and as it is dragged it will move
