@@ -37,7 +37,6 @@ const dragDropController = (() => {
   };
 
   const deleteDraggable = function (e) {
-    e.stopPropagation();
     console.log(e.target);
     if (isDown === true) {
       draggableShip.remove();
@@ -47,15 +46,11 @@ const dragDropController = (() => {
   };
 
   const moveDraggable = function (e, ship1CopyToDrag) {
-    e.preventDefault();
     if (isDown) {
-      mousePosition = {
-        x: e.clientX,
-        y: e.clientY,
-      };
+      e.preventDefault();
 
-      ship1CopyToDrag.style.left = mousePosition.x + offset[0] + "px";
-      ship1CopyToDrag.style.top = mousePosition.y + offset[1] + "px";
+      ship1CopyToDrag.style.left = e.clientX + offset[0] + "px";
+      ship1CopyToDrag.style.top = e.clientY + offset[1] + "px";
     }
   };
 
@@ -63,7 +58,7 @@ const dragDropController = (() => {
     let ship1CopyToDrag = document.createElement("img");
     ship1CopyToDrag.style.backgroundImage = ship1.style.backgroundImage;
     ship1CopyToDrag.classList.add("ship", "dragged");
-    ship1CopyToDrag.style.position = "absolute";
+    ship1CopyToDrag.style.position = "relative";
 
     // To know background image url of original ship and how much space it occupies
     draggableShip = ship1CopyToDrag;
@@ -73,17 +68,14 @@ const dragDropController = (() => {
     offset = [ship1.offsetLeft - e.clientX, ship1.offsetTop - e.clientY];
 
     // TODO: Can give initial starting position to this copy ship before it is moved even perhaps
-    let body = document.querySelector("body");
-    body.appendChild(ship1CopyToDrag);
+    board.appendChild(ship1CopyToDrag);
 
     console.log(ship1);
     // Place it at a position when it first appears and as it is dragged it will move
     // Here it appears on screen directly on top of original pic
     // Note to self: By being in the same parent they can now be positioned correctly
-    ship1CopyToDrag.style.left =
-      window.scrollX + ship1.getBoundingClientRect().left + "px";
-    ship1CopyToDrag.style.top =
-      window.scrollY + ship1.getBoundingClientRect().top + "px";
+    ship1CopyToDrag.style.left = ship1.getBoundingClientRect().left + "px";
+    ship1CopyToDrag.style.top = ship1.getBoundingClientRect().top + "px";
 
     ship1CopyToDrag.addEventListener("mousemove", (e) =>
       moveDraggable(e, ship1CopyToDrag)
