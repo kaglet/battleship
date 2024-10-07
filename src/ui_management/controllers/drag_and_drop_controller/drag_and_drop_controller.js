@@ -37,6 +37,7 @@ const dragDropController = (() => {
   };
 
   const deleteDraggable = function (e) {
+    e.stopPropagation();
     console.log(e.target);
     if (isDown === true) {
       draggableShip.remove();
@@ -46,11 +47,15 @@ const dragDropController = (() => {
   };
 
   const moveDraggable = function (e, ship1CopyToDrag) {
+    e.preventDefault();
     if (isDown) {
-      e.preventDefault();
+      mousePosition = {
+        x: e.clientX,
+        y: e.clientY,
+      };
 
-      ship1CopyToDrag.style.left = e.clientX + offset[0] + "px";
-      ship1CopyToDrag.style.top = e.clientY + offset[1] + "px";
+      ship1CopyToDrag.style.left = mousePosition.x + offset[0] + "px";
+      ship1CopyToDrag.style.top = mousePosition.y + offset[1] + "px";
     }
   };
 
