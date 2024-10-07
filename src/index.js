@@ -6,6 +6,8 @@ var mousePosition;
 var offset = [0, 0];
 var div;
 var isDown = false;
+let container = document.createElement("div");
+container.style.position = "relative";
 
 div = document.createElement("div");
 div.style.position = "relative";
@@ -16,7 +18,8 @@ div.style.height = "100px";
 div.style.background = "red";
 div.style.color = "blue";
 
-document.body.appendChild(div);
+container.appendChild(div);
+document.body.appendChild(container);
 
 // When the mouse is pressed down on the div
 div.addEventListener(
