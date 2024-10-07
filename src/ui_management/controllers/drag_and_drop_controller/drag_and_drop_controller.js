@@ -89,8 +89,11 @@ const dragDropController = (() => {
       createDraggableFromOriginal(e, ship1)
     );
     board = document.querySelector(".board");
+    cells = document.querySelectorAll(".cell");
 
-    board.addEventListener("mouseup", dropDraggeableDown);
+    cells.forEach((cell) =>
+      cell.addEventListener("mouseup", dropDraggeableDown)
+    );
   };
 
   document.addEventListener("mouseup", deleteDraggable);
