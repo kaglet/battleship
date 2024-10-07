@@ -37,8 +37,6 @@ const dragDropController = (() => {
   };
 
   const deleteDraggable = function (e) {
-    e.stopPropagation();
-
     console.log(e.target);
     if (isDown === true) {
       draggableShip.remove();
