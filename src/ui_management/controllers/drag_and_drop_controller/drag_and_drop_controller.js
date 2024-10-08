@@ -1,53 +1,42 @@
 const restaurantImg = require("../../../assets/images/ahtziri-lagarde-4_FsMDmCc6A-unsplash.jpg");
 
-// TODO: The picture will have to be generated inside to be a child of the grid container in order to specify its placement in the grid.
-// When you demand the pic it must be generated in the pic on drop not necessarily on drag.
-// The dragged picture, the original picture, are all symbolic.
-
 // Manages drag and drop functionality of ship images onto board
 // One approach is to generate new ship in its place and move the old one (make its position absolute)
 // If dropped before we get to board we must lose it forever
 
-// TODO: Make it redraggable after being dropped or make it disappear, either one
-// TODO: If they find themselves on the grid (within the coordinates, it must be dropped onto the cell mouse is hovering over)
-// If mouse down is clicked while something is being dragged and is currently selected then check if it has been dropped onto a cell
-
 const dragDropController = (() => {
   let ship1;
-  let isDown = false;
-  let offset = [0, 0];
+  let isShipSelected = false;
   let draggableShip;
   let board;
 
-  const dropDraggeableDown = function (e) {
+  const dropShip = function (e) {
     // TODO: place final copy of active ship down onto cell
     // Condition is true only when isDown is true as there was a ship selected
-    console.log(e.target);
-    console.log("hi i am in board");
-    if (isDown === true) {
+    if (isShipSelected === true) {
       let shipDroppedCopy = document.createElement("img");
       shipDroppedCopy.style.backgroundImage =
         draggableShip.style.backgroundImage;
       board.appendChild(shipDroppedCopy);
-      deleteDraggable(e);
+
       // TODO: append this element to the grid then give it an explicit placement whether it overlaps with other elements such as the cell
       // TODO: to make the cell visible modify the opacity of the picture
     }
 
-    isDown = false;
+    isShipSelected = false;
   };
 
   const deleteDraggable = function (e) {
     console.log(e.target);
-    if (isDown === true) {
+    if (isShipSelected === true) {
       draggableShip.remove();
     }
 
-    isDown = false;
+    isShipSelected = false;
   };
 
   const moveDraggable = function (e, ship1CopyToDrag) {
-    if (isDown) {
+    if (isShipSelected) {
       e.preventDefault();
 
       ship1CopyToDrag.style.left = e.clientX + offset[0] + "px";
@@ -59,13 +48,13 @@ const dragDropController = (() => {
     let ship1CopyToDrag = document.createElement("img");
     ship1CopyToDrag.style.backgroundImage = ship1.style.backgroundImage;
     ship1CopyToDrag.classList.add("ship", "dragged");
-    ship1CopyToDrag.style.position = "absolute";
+    ship1CopyToDrag.style.position = "relative";
 
     // To know background image url of original ship and how much space it occupies
     draggableShip = ship1CopyToDrag;
     // draggableShip.style.pointerEvents = "none";
 
-    isDown = true;
+    isShipSelected = true;
     offset = [ship1.offsetLeft - e.clientX, ship1.offsetTop - e.clientY];
 
     // TODO: Can give initial starting position to this copy ship before it is moved even perhaps
@@ -91,9 +80,7 @@ const dragDropController = (() => {
     board = document.querySelector(".board");
     cells = document.querySelectorAll(".cell");
 
-    cells.forEach((cell) =>
-      cell.addEventListener("mouseup", dropDraggeableDown)
-    );
+    cells.forEach((cell) => cell.addEventListener("mousedown", dropShip));
   };
 
   document.addEventListener("mouseup", deleteDraggable);
