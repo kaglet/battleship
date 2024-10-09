@@ -1,36 +1,36 @@
 const gameboard = require("./gameboard");
 
-const player = () => {
-  let name;
-  let playerGameboard = gameboard();
-  let type;
+const playerProto = {
+  set name(val) {
+    this._name = val;
+  },
+  get name() {
+    return this._name;
+  },
+  set playerGameboard(val) {
+    this._playerGameboard = val;
+  },
+  get playerGameboard() {
+    return this._playerGameboard;
+  },
+  setTypeToHuman() {
+    this._type = "H";
+  },
+  setTypeToBot() {
+    this._type = "V";
+  },
+  get type() {
+    return this._type;
+  },
+};
 
-  return {
-    name,
-    playerGameboard,
-    type,
-    set name(val) {
-      name = val;
-    },
-    get name() {
-      return name;
-    },
-    set playerGameboard(val) {
-      playerGameboard = val;
-    },
-    get playerGameboard() {
-      return playerGameboard;
-    },
-    setTypeToHuman() {
-      type = "H";
-    },
-    setTypeToBot() {
-      type = "V";
-    },
-    get type() {
-      return type;
-    },
-  };
+const player = () => {
+  let newPlayer = Object.create(playerProto);
+  newPlayer.name = "";
+  newPlayer.playerGameboard = gameboard();
+  newPlayer.type;
+
+  return newPlayer;
 };
 
 module.exports = player;
