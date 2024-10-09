@@ -50,6 +50,7 @@ const gameboard = () => {
   newGameboard.size = 10;
   newGameboard.grid = new Array(newGameboard.size);
   newGameboard.ships = [];
+  newGameboard.isGameboard = true;
 
   // initialize grid
   for (let i = 0; i < newGameboard.size; i++) {

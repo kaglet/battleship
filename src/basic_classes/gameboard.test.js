@@ -27,11 +27,7 @@ test("Place ship on valid grid space vertically", () => {
 
   for (let j = y; j < shipInstance.length; j++) {
     const element = gameboardInstance.grid[x][j];
-    expect(element).toHaveProperty("length");
-    expect(element).toHaveProperty("numHits");
-    expect(element).toHaveProperty("isSunk");
-    expect(element).toHaveProperty("hit");
-    expect(element).toHaveProperty("orientation");
+    expect(element.isShip).toBe(true);
   }
 });
 
@@ -46,11 +42,7 @@ test("Place ship on valid grid space horizontally", () => {
 
   for (let i = x; i < shipInstance.length; i++) {
     const element = gameboardInstance.grid[i][y];
-    expect(element).toHaveProperty("length");
-    expect(element).toHaveProperty("numHits");
-    expect(element).toHaveProperty("isSunk");
-    expect(element).toHaveProperty("hit");
-    expect(element).toHaveProperty("orientation");
+    expect(element.isShip).toBe(true);
   }
 });
 

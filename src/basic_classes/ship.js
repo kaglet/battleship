@@ -46,6 +46,7 @@ const ship = () => {
   newShip.length = 0;
   newShip.numHits = 0;
   newShip.setOrientationHorizontal();
+  newShip.isShip = true;
 
   return newShip;
 };

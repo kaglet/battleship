@@ -29,6 +29,7 @@ const player = () => {
   newPlayer.name = "";
   newPlayer.playerGameboard = gameboard();
   newPlayer.type;
+  newPlayer.isPlayer = true;
 
   return newPlayer;
 };
