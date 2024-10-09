@@ -26,6 +26,7 @@ const dragDropController = (() => {
     isShipSelected = false;
   };
 
+  // TODO: highlight a ship to delete it from board
   const deleteDraggable = function (e) {
     console.log(e.target);
     if (isShipSelected === true) {
@@ -35,49 +36,21 @@ const dragDropController = (() => {
     isShipSelected = false;
   };
 
-  const moveDraggable = function (e, ship1CopyToDrag) {
-    if (isShipSelected) {
-      e.preventDefault();
+  const markChosenShip = function (e, ship1) {
+    // TODO: From ship picture make it so you know ship object to mark as chosen
+    // TODO: from object you get when clicking on a pic can map to corresponding pic
 
-      ship1CopyToDrag.style.left = e.clientX + offset[0] + "px";
-      ship1CopyToDrag.style.top = e.clientY + offset[1] + "px";
-    }
-  };
-
-  const createDraggableFromOriginal = function (e, ship1) {
-    let ship1CopyToDrag = document.createElement("img");
-    ship1CopyToDrag.style.backgroundImage = ship1.style.backgroundImage;
-    ship1CopyToDrag.classList.add("ship", "dragged");
-    ship1CopyToDrag.style.position = "relative";
-
-    // To know background image url of original ship and how much space it occupies
     draggableShip = ship1CopyToDrag;
-    // draggableShip.style.pointerEvents = "none";
 
+    // Mark a ship is selected for drop to know
+    // TODO: At end after all ships are used clear selection, in fact after a ship is dropped clear selection or maybe keep it until ships inside are exhausted
     isShipSelected = true;
-    offset = [ship1.offsetLeft - e.clientX, ship1.offsetTop - e.clientY];
-
-    // TODO: Can give initial starting position to this copy ship before it is moved even perhaps
-    board.appendChild(ship1CopyToDrag);
-
-    console.log(ship1);
-    // Place it at a position when it first appears and as it is dragged it will move
-    // Here it appears on screen directly on top of original pic
-    // Note to self: By being in the same parent they can now be positioned correctly
-    ship1CopyToDrag.style.left = ship1.getBoundingClientRect().left + "px";
-    ship1CopyToDrag.style.top = ship1.getBoundingClientRect().top + "px";
-
-    ship1CopyToDrag.addEventListener("mousemove", (e) =>
-      moveDraggable(e, ship1CopyToDrag)
-    );
   };
 
   const init = function () {
     ship1 = document.querySelector("img");
-    ship1.addEventListener("mousedown", (e) =>
-      createDraggableFromOriginal(e, ship1)
-    );
-    board = document.querySelector(".board");
+    ship1.addEventListener("mousedown", (e) => markChosenShip(e, ship1));
+
     cells = document.querySelectorAll(".cell");
 
     cells.forEach((cell) => cell.addEventListener("mousedown", dropShip));
