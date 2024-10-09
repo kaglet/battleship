@@ -1,63 +1,64 @@
-let gameboard = () => {
-  let size = 10;
-  let grid = new Array(size);
-  let ships = [];
-
-  // initialize grid
-  for (let i = 0; i < size; i++) {
-    for (let j = 0; j < size; j++) {
-      grid[i] = new Array(size);
-    }
-  }
-
+const gameboardProto = {
+  get ships() {
+    return this._ships;
+  },
+  set ships(value) {
+    this._ships = value;
+  },
+  get size() {
+    return this._size;
+  },
+  set size(value) {
+    this._size = value;
+  },
+  get grid() {
+    return this._grid;
+  },
+  set grid(value) {
+    this._grid = value;
+  },
   // assumes x is constant and y is changing so vertical orientation
-  const placeShip = function (ship, x, y) {
-    ships.push(ship);
+  placeShip(ship, x, y) {
+    this._ships.push(ship);
     if (ship.orientation === "V") {
       for (let j = y; j < y + ship.length; j++) {
-        grid[x][j] = ship;
+        this._grid[x][j] = ship;
       }
     } else if (ship.orientation === "H") {
       for (let i = x; i < x + ship.length; i++) {
-        grid[i][y] = ship;
+        this._grid[i][y] = ship;
       }
     }
-  };
-
-  const receiveAttack = function (x, y) {
-    if (!grid[x][y]) {
-      grid[x][y] = "M";
+  },
+  receiveAttack(x, y) {
+    if (!this._grid[x][y]) {
+      this._grid[x][y] = "M";
     } else {
-      grid[x][y].hit();
+      this._grid[x][y].hit();
     }
-  };
-
-  const areShipsSunk = function (x, y) {
-    if (ships.some((ship) => ship.isSunk() === false)) return false;
+  },
+  areShipsSunk(x, y) {
+    if (this._ships.some((ship) => ship.isSunk() === false)) return false;
 
     return true;
-  };
+  },
+};
 
-  return {
-    size,
-    grid,
-    ships,
-    placeShip,
-    receiveAttack,
-    areShipsSunk,
-    get ships() {
-      return ships;
-    },
-    get size() {
-      return size;
-    },
-    set size(value) {
-      size = value;
-    },
-    get grid() {
-      return grid;
-    },
-  };
+const gameboard = () => {
+  let newGameboard = Object.create(gameboardProto);
+
+  newGameboard.size = 10;
+  newGameboard.grid = new Array(newGameboard.size);
+  newGameboard.ships = [];
+
+  // initialize grid
+  for (let i = 0; i < newGameboard.size; i++) {
+    for (let j = 0; j < newGameboard.size; j++) {
+      newGameboard.grid[i] = new Array(newGameboard.size);
+    }
+  }
+
+  return newGameboard;
 };
 
 module.exports = gameboard;
