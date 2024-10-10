@@ -18,15 +18,15 @@ const shipProto = {
     return this._type;
   },
   setTypeToPatrolBoat() {
-    this._type = "patrol boat";
+    this._type = "patrolBoat";
     this._length = 2;
   },
   setTypeToSubmarine() {
     this._type = "submarine";
     this._length = 3;
   },
-  setTypeToCruiser() {
-    this._type = "cruiser";
+  setTypeToDestroyer() {
+    this._type = "destroyer";
     this._length = 3;
   },
   setTypeToBattleship() {
