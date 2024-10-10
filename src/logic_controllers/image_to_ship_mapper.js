@@ -1,11 +1,14 @@
-const imgToShipMapper = () => {
+const imgToShipMapper = (() => {
   const getPicFromType = function (type) {
     return `${type}.jpg`;
   };
 
   const getTypeFromPic = function (url) {
-    return url.slice(-1, -2);
+    let newUrl = url.slice(0, -4);
+    return newUrl;
   };
-};
+
+  return { getPicFromType, getTypeFromPic };
+})();
 
 module.exports = imgToShipMapper;
