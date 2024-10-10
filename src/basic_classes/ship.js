@@ -14,6 +14,29 @@ const shipProto = {
   get orientation() {
     return this._orientation;
   },
+  get type() {
+    return this._type;
+  },
+  setTypeToPatrolBoat() {
+    this._type = "patrol boat";
+    this._length = 2;
+  },
+  setTypeToSubmarine() {
+    this._type = "submarine";
+    this._length = 3;
+  },
+  setTypeToCruiser() {
+    this._type = "cruiser";
+    this._length = 3;
+  },
+  setTypeToBattleship() {
+    this._type = "battleship";
+    this._length = 4;
+  },
+  setTypeToCarrier() {
+    this._type = "carrier";
+    this._length = 5;
+  },
   setOrientationVertical() {
     this._orientation = "V";
   },
@@ -43,7 +66,7 @@ const shipProto = {
 const ship = () => {
   let newShip = Object.create(shipProto);
 
-  newShip.length = 0;
+  // newShip.length = 0;
   newShip.numHits = 0;
   newShip.setOrientationHorizontal();
   newShip.isShip = true;

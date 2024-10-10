@@ -9,6 +9,7 @@ test("(Has specified basic properties/functions) Length, sunken status, and numb
   expect(shipInstance).toHaveProperty("isSunk");
   expect(shipInstance).toHaveProperty("hit");
   expect(shipInstance).toHaveProperty("orientation");
+  expect(shipInstance).toHaveProperty("type");
 });
 
 test("First hit works", () => {
@@ -55,3 +56,13 @@ test("(Sunken status) Number of hits equal to ship length", () => {
 
   expect(shipInstance.isSunk()).toBeTruthy();
 });
+
+test("Setting ship type changes length correctly", () => {
+  let shipInstance = ship();
+
+  shipInstance.setTypeToPatrolBoat();
+
+  expect(shipInstance.length).toBe(2);
+});
+
+// TODO: Check orientation changes
