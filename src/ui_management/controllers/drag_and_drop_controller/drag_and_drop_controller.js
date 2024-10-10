@@ -1,4 +1,6 @@
-const restaurantImg = require("../../../assets/images/ahtziri-lagarde-4_FsMDmCc6A-unsplash.jpg");
+const ship = require("../../../basic_classes/ship");
+const imgToShipMapper = require("../../../logic_controllers/image_to_ship_mapper");
+const gameboard = require("./../../../basic_classes/gameboard.js");
 
 // Manages drag and drop functionality of ship images onto board
 // One approach is to generate new ship in its place and move the old one (make its position absolute)
@@ -7,20 +9,54 @@ const restaurantImg = require("../../../assets/images/ahtziri-lagarde-4_FsMDmCc6
 const dragDropController = (() => {
   let ship1;
   let isShipSelected = false;
-  let draggableShip;
-  let board;
+  let draggableShipType;
+  let uiBoard;
+  let logicalGameboard = gameboard();
+
+  const setOrientationFromPreference = function () {
+    return "V";
+  };
+
+  const markEndOfSelection = function () {
+    // TODO: At end after all ships are used up marked by counter of ships dropped/present on board and used therefore clear selection, in fact after a ship is dropped clear selection or maybe keep it until ships inside are exhausted
+    /* TODO: There can be an object with property names of the types, from each type dropped onto board place onto counter, one for player one for opponent.
+     Each time ship is dropped increase count for that type and if destroyed decrease count for that type*/
+    isShipSelected = false;
+  };
 
   const dropShip = function (e) {
     // TODO: place final copy of active ship down onto cell
     // Condition is true only when isDown is true as there was a ship selected
     if (isShipSelected === true) {
       let shipDroppedCopy = document.createElement("img");
-      shipDroppedCopy.style.backgroundImage =
-        draggableShip.style.backgroundImage;
-      board.appendChild(shipDroppedCopy);
+      shipDroppedCopy.style.backgroundImage = `../../../assets/images/${imgToShipMapper.getPicFromType(
+        draggableShipType
+      )}`;
 
-      // TODO: append this element to the grid then give it an explicit placement whether it overlaps with other elements such as the cell
-      // TODO: to make the cell visible modify the opacity of the picture
+      console.log(e.target);
+
+      let row = e.target.dataset.row;
+      let col = e.target.dataset.col;
+
+      let newShip = ship();
+      newShip.type = draggableShipType;
+      newShip.orientation = setOrientationFromPreference();
+
+      let board = document.querySelector("board");
+
+      board.appendChild(shipDroppedCopy);
+      shipDroppedCopy.style.gridRowStart = row;
+      shipDroppedCopy.style.gridColumnStart = col;
+
+      // Logically place ship in grid
+      logicalGameboard.placeShip(newShip, col, row);
+
+      // Visually place ship image in grid
+      if (newShip.orientation === "V") {
+        shipDroppedCopy.style.gridRowEnd = newShip.length;
+      } else if (newShip.orientation === "H") {
+        shipDroppedCopy.style.gridColumnEnd = newShip.length;
+      }
     }
 
     isShipSelected = false;
@@ -28,38 +64,30 @@ const dragDropController = (() => {
 
   // TODO: highlight a ship to delete it from board
   const deleteDraggable = function (e) {
-    console.log(e.target);
     if (isShipSelected === true) {
-      draggableShip.remove();
+      draggableShipType = "";
     }
 
     isShipSelected = false;
   };
 
-  const markChosenShip = function (e, ship1) {
-    // TODO: From ship picture make it so you know ship object to mark as chosen
-    // TODO: from object you get when clicking on a pic can map to corresponding pic
-
-    draggableShip = ship1CopyToDrag;
-
-    // Mark a ship is selected for drop to know
-    // TODO: At end after all ships are used clear selection, in fact after a ship is dropped clear selection or maybe keep it until ships inside are exhausted
+  const markChosenShip = function (ship1) {
+    // From ship picture save type for ship object instantiation and assigning a type (to inform the length for highlight) when dropping the object
+    draggableShipType = imgToShipMapper.getTypeFromPic(ship1.dataset.url);
     isShipSelected = true;
   };
 
   const init = function () {
-    ship1 = document.querySelector("img");
-    ship1.addEventListener("mousedown", (e) => markChosenShip(e, ship1));
+    let ships = document.querySelectorAll(".ships img");
+    ships.forEach((ship) =>
+      ship.addEventListener("mousedown", () => markChosenShip(ship))
+    );
 
-    cells = document.querySelectorAll(".cell");
-
+    let cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => cell.addEventListener("mousedown", dropShip));
   };
 
   document.addEventListener("mouseup", deleteDraggable);
-  // will an arbitrary div element block the moveup listener on the grid. No right. Because all of the divs are not blocking the grid.
-  // But they do not have any events on them.
-  // The picture is not part of the grid. It is an element on top of it absolutely positioned
 
   return { init };
 })();
