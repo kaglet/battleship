@@ -1,6 +1,26 @@
+const battleship = require("../assets/images/battleship.jpg");
+const carrier = require("../assets/images/carrier.jpg");
+const destroyer = require("../assets/images/destroyer.jpg");
+const patrolBoat = require("../assets/images/patrolBoat.jpg");
+const submarine = require("../assets/images/submarine.jpg");
+
 const imgToShipMapper = (() => {
   const getPicFromType = function (type) {
-    return `${type}.jpg`;
+    switch (type) {
+      case "battleship":
+        return battleship;
+      case "carrier":
+        return carrier;
+      case "destroyer":
+        return destroyer;
+      case "patrolBoat":
+        return patrolBoat;
+      case "submarine":
+        return submarine;
+
+      default:
+        break;
+    }
   };
 
   const getTypeFromPic = function (url) {

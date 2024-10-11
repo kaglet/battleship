@@ -29,9 +29,9 @@ const dragDropController = (() => {
     // Condition is true only when isDown is true as there was a ship selected
     if (isShipSelected === true) {
       let shipDroppedCopy = document.createElement("img");
-      shipDroppedCopy.style.backgroundImage = `../../../assets/images/${imgToShipMapper.getPicFromType(
+      shipDroppedCopy.style.backgroundImage = `url("${imgToShipMapper.getPicFromType(
         draggableShipType
-      )}`;
+      )}")`;
 
       console.log(e.target);
 
@@ -50,6 +50,7 @@ const dragDropController = (() => {
 
       // Logically place ship in grid
       logicalGameboard.placeShip(newShip, col, row);
+      console.log("New ship is ", newShip);
 
       // Visually place ship image in grid
       if (newShip.orientation === "V") {
@@ -75,6 +76,7 @@ const dragDropController = (() => {
     // From ship picture save type for ship object instantiation and assigning a type (to inform the length for highlight) when dropping the object
     draggableShipType = imgToShipMapper.getTypeFromPic(ship1.dataset.url);
     isShipSelected = true;
+    console.log("Chosen ship type is ", draggableShipType);
   };
 
   const init = function () {
@@ -88,6 +90,7 @@ const dragDropController = (() => {
   };
 
   document.addEventListener("mouseup", deleteDraggable);
+  document.addEventListener("mousedown", () => console.log("hello"));
 
   return { init };
 })();
