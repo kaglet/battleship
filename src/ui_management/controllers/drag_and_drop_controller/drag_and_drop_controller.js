@@ -42,7 +42,7 @@ const dragDropController = (() => {
       newShip.type = draggableShipType;
       newShip.orientation = setOrientationFromPreference();
 
-      let board = document.querySelector("board");
+      let board = document.querySelector(".board");
 
       board.appendChild(shipDroppedCopy);
       shipDroppedCopy.style.gridRowStart = row;
