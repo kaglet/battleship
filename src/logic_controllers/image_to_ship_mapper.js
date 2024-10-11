@@ -4,7 +4,10 @@ const imgToShipMapper = (() => {
   };
 
   const getTypeFromPic = function (url) {
-    let newUrl = url.slice(0, -4);
+    const lastForwardSlash = url.lastIndexOf("/");
+    // TODO: Find the position of the last occurence of a symbol from the end
+    // For a url of this form: "url(\"http://localhost:8080/battleship.jpg\")"
+    let newUrl = url.slice(lastForwardSlash + 1, -6);
     return newUrl;
   };
 
