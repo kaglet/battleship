@@ -45,11 +45,11 @@ const dragDropController = (() => {
       let board = document.querySelector(".board");
 
       board.appendChild(shipDroppedCopy);
-      shipDroppedCopy.style.gridRowStart = row;
-      shipDroppedCopy.style.gridColumnStart = col;
+      shipDroppedCopy.style.gridRowStart = row + 1;
+      shipDroppedCopy.style.gridColumnStart = col + 1;
 
       // Logically place ship in grid
-      logicalGameboard.placeShip(newShip, col, row);
+      logicalGameboard.placeShip(newShip, +col, +row);
 
       // Visually place ship image in grid
       if (newShip.orientation === "V") {
