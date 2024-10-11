@@ -35,8 +35,8 @@ const dragDropController = (() => {
 
       console.log(e.target);
 
-      let row = e.target.dataset.row;
-      let col = e.target.dataset.col;
+      let row = +e.target.dataset.row;
+      let col = +e.target.dataset.col;
 
       let newShip = ship();
       newShip.type = draggableShipType;
@@ -49,7 +49,7 @@ const dragDropController = (() => {
       shipDroppedCopy.style.gridColumnStart = col + 1;
 
       // Logically place ship in grid
-      logicalGameboard.placeShip(newShip, +col, +row);
+      logicalGameboard.placeShip(newShip, col, row);
 
       // Visually place ship image in grid
       if (newShip.orientation === "V") {
