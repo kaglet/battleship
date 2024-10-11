@@ -14,6 +14,27 @@ const shipProto = {
   get orientation() {
     return this._orientation;
   },
+  set type(val) {
+    switch (val) {
+      case "battleship":
+        this.setTypeToBattleship();
+        break;
+      case "carrier":
+        this.setTypeToCarrier();
+        break;
+      case "destroyer":
+        this.setTypeToDestroyer();
+        break;
+      case "submarine":
+        this.setTypeToSubmarine();
+        break;
+      case "patrolBoat":
+        this.setTypeToPatrolBoat();
+        break;
+      default:
+        break;
+    }
+  },
   get type() {
     return this._type;
   },

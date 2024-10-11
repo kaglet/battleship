@@ -53,9 +53,9 @@ const dragDropController = (() => {
 
       // Visually place ship image in grid
       if (newShip.orientation === "V") {
-        shipDroppedCopy.style.gridRowEnd = newShip.length;
+        shipDroppedCopy.style.gridRowEnd = `span ${newShip.length}`;
       } else if (newShip.orientation === "H") {
-        shipDroppedCopy.style.gridColumnEnd = newShip.length;
+        shipDroppedCopy.style.gridColumnEnd = `span ${newShip.length}`;
       }
     }
 
