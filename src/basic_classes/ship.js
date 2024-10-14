@@ -1,9 +1,9 @@
 const shipProto = {
-  get length() {
-    return this._length;
+  get size() {
+    return this._size;
   },
-  set length(val) {
-    this._length = val;
+  set size(val) {
+    this._size = val;
   },
   get numHits() {
     return this._numHits;
@@ -40,23 +40,23 @@ const shipProto = {
   },
   setTypeToPatrolBoat() {
     this._type = "patrolBoat";
-    this._length = 2;
+    this._size = 2;
   },
   setTypeToSubmarine() {
     this._type = "submarine";
-    this._length = 3;
+    this._size = 3;
   },
   setTypeToDestroyer() {
     this._type = "destroyer";
-    this._length = 3;
+    this._size = 3;
   },
   setTypeToBattleship() {
     this._type = "battleship";
-    this._length = 4;
+    this._size = 4;
   },
   setTypeToCarrier() {
     this._type = "carrier";
-    this._length = 5;
+    this._size = 5;
   },
   setOrientationVertical() {
     this._orientation = "V";
@@ -65,9 +65,9 @@ const shipProto = {
     this._orientation = "H";
   },
   isSunk() {
-    if (this._numHits === this._length) {
+    if (this._numHits === this._size) {
       return true;
-    } else if (this._numHits < this._length) {
+    } else if (this._numHits < this._size) {
       return false;
     } else {
       /* This indicates somehow the number of hits is more than length 
