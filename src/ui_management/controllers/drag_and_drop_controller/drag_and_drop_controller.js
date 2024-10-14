@@ -72,7 +72,7 @@ const dragDropController = (() => {
       if (newShip.orientation === "V") {
         shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
       } else if (newShip.orientation === "H") {
-        shipDroppedCopy.style.gridColumnEnd = `span ${colEnd + 1}`;
+        shipDroppedCopy.style.gridColumnEnd = `${colEnd + 1}`;
       }
 
       isShipSelected = false;
