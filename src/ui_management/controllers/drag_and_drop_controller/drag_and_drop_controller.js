@@ -81,12 +81,16 @@ const dragDropController = (() => {
 
   const init = function () {
     let ships = document.querySelectorAll(".ships img");
-    ships.forEach((ship) =>
-      ship.addEventListener("mousedown", () => markChosenShip(ship))
-    );
+    ships.forEach((ship) => {
+      ship.addEventListener("mousedown", () => markChosenShip(ship));
+      console.log("Ship listener attached");
+    });
 
     let cells = document.querySelectorAll(".cell");
-    cells.forEach((cell) => cell.addEventListener("mousedown", dropShip));
+    cells.forEach((cell) => {
+      cell.addEventListener("click", dropShip);
+      console.log("Event listener attached to ", cell);
+    });
   };
 
   document.addEventListener("mouseup", deleteDraggable);
