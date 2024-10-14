@@ -21,11 +21,11 @@ const gameboardProto = {
   placeShip(ship, x, y) {
     this._ships.push(ship);
     if (ship.orientation === "V") {
-      for (let j = y; j < y + ship.length; j++) {
+      for (let j = y; j < y + ship.size; j++) {
         this._grid[x][j] = ship;
       }
     } else if (ship.orientation === "H") {
-      for (let i = x; i < x + ship.length; i++) {
+      for (let i = x; i < x + ship.size; i++) {
         this._grid[i][y] = ship;
       }
     }
