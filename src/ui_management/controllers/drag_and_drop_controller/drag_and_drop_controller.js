@@ -7,8 +7,7 @@ const gameboard = require("./../../../basic_classes/gameboard.js");
 // If dropped before we get to board we must lose it forever
 
 const dragDropController = (() => {
-  let ship1;
-  let isShipSelected = false;
+  let isShipSelected;
   let draggableShipType;
   let uiBoard;
   let logicalGameboard = gameboard();
@@ -58,18 +57,10 @@ const dragDropController = (() => {
       } else if (newShip.orientation === "H") {
         shipDroppedCopy.style.gridColumnEnd = `span ${newShip.length}`;
       }
-    }
 
-    isShipSelected = false;
-  };
-
-  // TODO: highlight a ship to delete it from board
-  const deleteDraggable = function (e) {
-    if (isShipSelected === true) {
+      isShipSelected = false;
       draggableShipType = "";
     }
-
-    isShipSelected = false;
   };
 
   const markChosenShip = function (ship1) {
@@ -80,6 +71,8 @@ const dragDropController = (() => {
   };
 
   const init = function () {
+    isShipSelected = false;
+
     let ships = document.querySelectorAll(".ships img");
     ships.forEach((ship) => {
       ship.addEventListener("mousedown", () => markChosenShip(ship));
@@ -93,7 +86,6 @@ const dragDropController = (() => {
     });
   };
 
-  document.addEventListener("mouseup", deleteDraggable);
   document.addEventListener("mousedown", () => console.log("hello"));
 
   return { init };
