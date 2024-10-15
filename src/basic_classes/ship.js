@@ -87,7 +87,7 @@ const shipProto = {
 const ship = () => {
   let newShip = Object.create(shipProto);
 
-  // newShip.length = 0;
+  // newShip.size = 0;
   newShip.numHits = 0;
   newShip.setOrientationHorizontal();
   newShip.isShip = true;

@@ -21,11 +21,11 @@ test("Place ship on valid grid space vertically", () => {
   let gameboardInstance = gameboard();
   let x = 1;
   let y = 4;
-  shipInstance.length = 4;
+  shipInstance.size = 4;
   shipInstance.setOrientationVertical();
   gameboardInstance.placeShip(shipInstance, x, y);
 
-  for (let j = y; j < shipInstance.length; j++) {
+  for (let j = y; j < shipInstance.size; j++) {
     const element = gameboardInstance.grid[x][j];
     expect(element.isShip).toBe(true);
   }
@@ -36,11 +36,11 @@ test("Place ship on valid grid space horizontally", () => {
   let gameboardInstance = gameboard();
   let x = 1;
   let y = 4;
-  shipInstance.length = 4;
+  shipInstance.size = 4;
   shipInstance.setOrientationHorizontal();
   gameboardInstance.placeShip(shipInstance, x, y);
 
-  for (let i = x; i < shipInstance.length; i++) {
+  for (let i = x; i < shipInstance.size; i++) {
     const element = gameboardInstance.grid[i][y];
     expect(element.isShip).toBe(true);
   }
@@ -50,8 +50,8 @@ test("Track ships when added", () => {
   let gameboardInstance = gameboard();
   let shipInstance1 = ship();
   let shipInstance2 = ship();
-  shipInstance1.length = 4;
-  shipInstance2.length = 4;
+  shipInstance1.size = 4;
+  shipInstance2.size = 4;
   gameboardInstance.placeShip(shipInstance1, 3, 5);
   gameboardInstance.placeShip(shipInstance2, 4, 6);
 
@@ -69,7 +69,7 @@ test("Receive attack on unoccupied spot", () => {
 test("Receive attack on occupied spot", () => {
   let gameboardInstance = gameboard();
   let shipInstance = ship();
-  shipInstance.length = 4;
+  shipInstance.size = 4;
 
   let x = 3;
   let y = 7;
@@ -83,7 +83,7 @@ test("Receive attack on occupied spot", () => {
 test("Receive multiple attacks on occupied spot", () => {
   let gameboardInstance = gameboard();
   let shipInstance = ship();
-  shipInstance.length = 4;
+  shipInstance.size = 4;
 
   let x = 3;
   let y = 7;
@@ -103,8 +103,8 @@ test("Report when all ships sunken", () => {
   let shipInstance1 = ship();
   let shipInstance2 = ship();
 
-  shipInstance1.length = 3;
-  shipInstance2.length = 2;
+  shipInstance1.size = 3;
+  shipInstance2.size = 2;
   shipInstance2.setOrientationVertical();
 
   gameboardInstance.placeShip(shipInstance1, 0, 5);
