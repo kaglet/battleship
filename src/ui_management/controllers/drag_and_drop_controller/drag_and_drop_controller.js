@@ -48,10 +48,6 @@ const dragDropController = (() => {
       shipDroppedCopy.style.gridRowStart = row + 1;
       shipDroppedCopy.style.gridColumnStart = col + 1;
 
-      // Logically place ship in grid
-      logicalGameboard.placeShip(newShip, col, row);
-      console.log("New ship is ", newShip);
-
       // Visually place ship image in grid
       if (newShip.orientation === "V") {
         shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
@@ -78,6 +74,10 @@ const dragDropController = (() => {
 
         shipDroppedCopy.style.gridRowEnd = `${row + 2}`;
       }
+
+      // Logically place ship in grid
+      logicalGameboard.placeShip(newShip, col, row);
+      console.log("New ship is ", newShip);
 
       isShipSelected = false;
       draggableShipType = "";
