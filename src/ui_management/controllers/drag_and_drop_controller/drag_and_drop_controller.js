@@ -25,7 +25,8 @@ const dragDropController = (() => {
 
   const dropShip = function (e) {
     if (isShipSelected === true) {
-      let shipDroppedCopy = document.createElement("img");
+      let shipDroppedCopy = document.createElement("div");
+      shipDroppedCopy.classList.add("ship");
       shipDroppedCopy.style.backgroundImage = `url("${imgToShipMapper.getPicFromType(
         draggableShipType
       )}")`;
