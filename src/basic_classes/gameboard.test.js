@@ -46,6 +46,17 @@ test("Place ship on valid grid space horizontally", () => {
   }
 });
 
+test("Check overlap before placing ship", () => {
+  let gameboardInstance = gameboard();
+  let shipInstance1 = ship();
+  let shipInstance2 = ship();
+  shipInstance1.size = 4;
+  shipInstance2.size = 4;
+  gameboardInstance.placeShip(shipInstance1, 3, 5);
+
+  expect(gameboardInstance.checkOverlap(shipInstance2, 3, 6)).toBe(false);
+});
+
 test("Track ships when added", () => {
   let gameboardInstance = gameboard();
   let shipInstance1 = ship();
