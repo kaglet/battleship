@@ -17,6 +17,29 @@ const gameboardProto = {
   set grid(value) {
     this._grid = value;
   },
+  checkOverlap(ship, x, y) {
+    let isObstructionFound = false;
+
+    if (ship.orientation === "V") {
+      for (let j = y; j < y + ship.size; j++) {
+        let elementInPath = this._grid[x][j];
+        if (elementInPath !== undefined && elementInPath.isShip === true) {
+          isObstructionFound = true;
+          return isObstructionFound;
+        }
+      }
+    } else if (ship.orientation === "H") {
+      for (let i = x; i < x + ship.size; i++) {
+        let elementInPath = this._grid[i][y];
+        if (elementInPath !== undefined && elementInPath.isShip === true) {
+          isObstructionFound = true;
+          return isObstructionFound;
+        }
+      }
+    }
+
+    return isObstructionFound;
+  },
   // assumes x is constant and y is changing so vertical orientation
   placeShip(ship, x, y) {
     this._ships.push(ship);

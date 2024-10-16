@@ -45,6 +45,7 @@ const dragDropController = (() => {
       let board = document.querySelector(".board");
 
       board.appendChild(shipDroppedCopy);
+
       // TODO: Prevent overlap before placement
       // Visually place ship image in grid
       if (newShip.orientation === "V") {
@@ -57,6 +58,10 @@ const dragDropController = (() => {
           row -= offset;
         }
 
+        if (logicalGameboard.checkOverlap(newShip, col, row)) {
+          return;
+        }
+
         shipDroppedCopy.style.gridRowStart = row + 1;
         shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
         shipDroppedCopy.style.gridColumnStart = col + 1;
@@ -67,6 +72,10 @@ const dragDropController = (() => {
           let offset = colEnd - logicalGameboard.size;
           colEnd -= offset;
           col -= offset;
+        }
+
+        if (logicalGameboard.checkOverlap(newShip, col, row)) {
+          return;
         }
 
         shipDroppedCopy.style.gridColumnStart = col + 1;
