@@ -41,20 +41,6 @@ const dragDropController = (() => {
       newShip.type = draggableShipType;
       let rowEnd = row + newShip.size;
       let colEnd = col + newShip.size;
-      let isRowOutOfBounds = rowEnd >= logicalGameboard.size;
-      let isColOutOfBounds = colEnd >= logicalGameboard.size;
-      // If out bounds calculate by how much it will be by and bring it back in, by offsetting the start therefore offsetting the end
-      if (isRowOutOfBounds) {
-        // If rowEnd coincides with the logical gameboard size it is out of bounds by 1 so use +1
-        let offset = rowEnd - logicalGameboard.size + 1;
-        rowEnd -= offset;
-        row -= offset;
-      }
-      if (isColOutOfBounds) {
-        let offset = colEnd - logicalGameboard.size + 1;
-        colEnd -= offset;
-        col -= offset;
-      }
 
       newShip.orientation = setOrientationFromPreference();
 
@@ -71,8 +57,24 @@ const dragDropController = (() => {
       // Visually place ship image in grid
       if (newShip.orientation === "V") {
         shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
+
+        // If out bounds calculate by how much it will be by and bring it back in, by offsetting the start therefore offsetting the end
+        let isRowOutOfBounds = rowEnd >= logicalGameboard.size;
+        if (isRowOutOfBounds) {
+          // If rowEnd coincides with the logical gameboard size it is out of bounds by 1 so use +1
+          let offset = rowEnd - logicalGameboard.size + 1;
+          rowEnd -= offset;
+          row -= offset;
+        }
       } else if (newShip.orientation === "H") {
         shipDroppedCopy.style.gridColumnEnd = `${colEnd + 1}`;
+
+        let isColOutOfBounds = colEnd >= logicalGameboard.size;
+        if (isColOutOfBounds) {
+          let offset = colEnd - logicalGameboard.size + 1;
+          colEnd -= offset;
+          col -= offset;
+        }
       }
 
       isShipSelected = false;
