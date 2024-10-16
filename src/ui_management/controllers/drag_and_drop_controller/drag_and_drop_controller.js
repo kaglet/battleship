@@ -24,8 +24,6 @@ const dragDropController = (() => {
   };
 
   const dropShip = function (e) {
-    // TODO: place final copy of active ship down onto cell
-    // Condition is true only when isDown is true as there was a ship selected
     if (isShipSelected === true) {
       let shipDroppedCopy = document.createElement("img");
       shipDroppedCopy.style.backgroundImage = `url("${imgToShipMapper.getPicFromType(
@@ -66,6 +64,8 @@ const dragDropController = (() => {
           rowEnd -= offset;
           row -= offset;
         }
+
+        shipDroppedCopy.style.gridColumnEnd = `${col + 2}`;
       } else if (newShip.orientation === "H") {
         shipDroppedCopy.style.gridColumnEnd = `${colEnd + 1}`;
 
@@ -75,6 +75,8 @@ const dragDropController = (() => {
           colEnd -= offset;
           col -= offset;
         }
+
+        shipDroppedCopy.style.gridRowEnd = `${row + 2}`;
       }
 
       isShipSelected = false;

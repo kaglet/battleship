@@ -46,9 +46,15 @@ body {
   display: flex;
 }
 
-img {
+.ships img {
   height: 200px;
   width: 200px;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
 }
