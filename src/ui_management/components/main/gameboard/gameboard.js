@@ -12,6 +12,8 @@ const gameboard = () => {
       let cellDisplay = cell();
       cellDisplay.setAttribute("data-row", i);
       cellDisplay.setAttribute("data-col", j);
+      cellDisplay.style.gridRowStart = i + 1;
+      cellDisplay.style.gridColumnStart = j + 1;
 
       boardDisplay.appendChild(cellDisplay);
     }
