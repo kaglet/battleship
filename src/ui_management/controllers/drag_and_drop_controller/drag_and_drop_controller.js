@@ -45,35 +45,37 @@ const dragDropController = (() => {
       let board = document.querySelector(".board");
 
       board.appendChild(shipDroppedCopy);
-      shipDroppedCopy.style.gridRowStart = row + 1;
-      shipDroppedCopy.style.gridColumnStart = col + 1;
-
+      // TODO: Prevent overlap before placement
       // Visually place ship image in grid
       if (newShip.orientation === "V") {
-        shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
-
         // If out bounds calculate by how much it will be by and bring it back in, by offsetting the start therefore offsetting the end
         let isRowOutOfBounds = rowEnd >= logicalGameboard.size;
         if (isRowOutOfBounds) {
           // If rowEnd coincides with the logical gameboard size it is out of bounds by 1 so use +1
-          let offset = rowEnd - logicalGameboard.size + 1;
+          let offset = rowEnd - logicalGameboard.size;
           rowEnd -= offset;
           row -= offset;
         }
 
+        shipDroppedCopy.style.gridRowStart = row + 1;
+        shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
+        shipDroppedCopy.style.gridColumnStart = col + 1;
         shipDroppedCopy.style.gridColumnEnd = `${col + 2}`;
       } else if (newShip.orientation === "H") {
-        shipDroppedCopy.style.gridColumnEnd = `${colEnd + 1}`;
-
         let isColOutOfBounds = colEnd >= logicalGameboard.size;
         if (isColOutOfBounds) {
-          let offset = colEnd - logicalGameboard.size + 1;
+          let offset = colEnd - logicalGameboard.size;
           colEnd -= offset;
           col -= offset;
         }
 
+        shipDroppedCopy.style.gridColumnStart = col + 1;
+        shipDroppedCopy.style.gridColumnEnd = `${colEnd + 1}`;
+        shipDroppedCopy.style.gridRowStart = row + 1;
         shipDroppedCopy.style.gridRowEnd = `${row + 2}`;
       }
+
+      shipDroppedCopy.style.zIndex = 3;
 
       // Logically place ship in grid
       logicalGameboard.placeShip(newShip, col, row);
