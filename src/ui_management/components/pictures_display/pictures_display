@@ -1,4 +1,4 @@
-const restaurantImg = require("../../../assets/images/carrier.jpg");
+const restaurantImg = require("../../../assets/images/carrier.svg");
 
 const shipSelectionPanel = () => {
   let shipsDisplay = document.createElement("section");

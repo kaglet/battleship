@@ -1,8 +1,8 @@
-const battleship = require("../assets/images/battleship.jpg");
-const carrier = require("../assets/images/carrier.jpg");
-const destroyer = require("../assets/images/destroyer.jpg");
-const patrolBoat = require("../assets/images/patrolBoat.jpg");
-const submarine = require("../assets/images/submarine.jpg");
+const battleship = require("../assets/images/battleship.svg");
+const carrier = require("../assets/images/carrier.svg");
+const destroyer = require("../assets/images/destroyer.svg");
+const patrolBoat = require("../assets/images/patrolBoat.svg");
+const submarine = require("../assets/images/submarine.svg");
 
 const imgToShipMapper = (() => {
   const getPicFromType = function (type) {
@@ -26,7 +26,7 @@ const imgToShipMapper = (() => {
   const getTypeFromPic = function (url) {
     const lastForwardSlash = url.lastIndexOf("/");
     // TODO: Find the position of the last occurence of a symbol from the end
-    // For a url of this form: "url(\"http://localhost:8080/battleship.jpg\")"
+    // For a url of this form: "url(\"http://localhost:8080/battleship.svg\")"
     let newUrl = url.slice(lastForwardSlash + 1, -6);
     return newUrl;
   };

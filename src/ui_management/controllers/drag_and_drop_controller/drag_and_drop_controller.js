@@ -12,6 +12,10 @@ const dragDropController = (() => {
   let uiBoard;
   let logicalGameboard = gameboard();
 
+  const getManipulatedGameboard = function () {
+    return logicalGameboard;
+  };
+
   const setOrientationFromPreference = function () {
     return "V";
   };
@@ -121,7 +125,7 @@ const dragDropController = (() => {
 
   document.addEventListener("mousedown", () => console.log("hello"));
 
-  return { init };
+  return { init, getManipulatedGameboard };
 })();
 
 module.exports = dragDropController;
