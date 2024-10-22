@@ -24,7 +24,6 @@ const dragDropController = (() => {
     // TODO: At end after all ships are used up marked by counter of ships dropped/present on board and used therefore clear selection, in fact after a ship is dropped clear selection or maybe keep it until ships inside are exhausted
     /* TODO: There can be an object with property names of the types, from each type dropped onto board place onto counter, one for player one for opponent.
      Each time ship is dropped increase count for that type and if destroyed decrease count for that type*/
-    isShipSelected = false;
   };
 
   // Visually place ship image in grid
@@ -85,13 +84,24 @@ const dragDropController = (() => {
     console.log("New ship is ", newShip);
   };
 
+  const getShipImgFromChosenType = (type) => {
+    let img = document.createElement("div");
+    img.classList.add("ship");
+    img.style.backgroundImage = `url("${type}")`;
+
+    return img;
+  };
+
+  const clearSelection = () => {
+    isShipSelected = false;
+    draggableShipType = "";
+  };
+
   const dropShip = function (e) {
     if (isShipSelected === true) {
-      let shipDroppedCopy = document.createElement("div");
-      shipDroppedCopy.classList.add("ship");
-      shipDroppedCopy.style.backgroundImage = `url("${imgToShipMapper.getPicFromType(
-        draggableShipType
-      )}")`;
+      let shipDroppedCopy = getShipImgFromChosenType(
+        imgToShipMapper.getPicFromType(draggableShipType)
+      );
 
       console.log(e.target);
 
@@ -99,9 +109,7 @@ const dragDropController = (() => {
       let col = +e.target.dataset.col;
 
       placeAtCoordinates(col, row, shipDroppedCopy);
-
-      isShipSelected = false;
-      draggableShipType = "";
+      clearSelection();
     }
   };
 
@@ -113,7 +121,7 @@ const dragDropController = (() => {
   };
 
   const init = function () {
-    isShipSelected = false;
+    clearSelection();
 
     let ships = document.querySelectorAll(".ships img");
     ships.forEach((ship) => {
