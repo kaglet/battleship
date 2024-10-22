@@ -1,5 +1,5 @@
 const ship = require("../../../basic_classes/ship");
-const imgToShipMapper = require("../../../logic_controllers/image_to_ship_mapper");
+const imgToShipMapper = require("../../../controllers/image_to_ship_mapper.js");
 const gameboard = require("./../../../basic_classes/gameboard.js");
 
 // Manages drag and drop functionality of ship images onto board
@@ -27,6 +27,64 @@ const dragDropController = (() => {
     isShipSelected = false;
   };
 
+  // Visually place ship image in grid
+  const placeAtCoordinates = function (col, row, shipDroppedCopy) {
+    let newShip = ship();
+    newShip.type = draggableShipType;
+    let rowEnd = row + newShip.size;
+    let colEnd = col + newShip.size;
+
+    newShip.orientation = setOrientationFromPreference();
+
+    let board = document.querySelector(".board");
+
+    board.appendChild(shipDroppedCopy);
+
+    // Prevent overlap before placement
+    if (newShip.orientation === "V") {
+      // If out bounds calculate by how much it will be by and bring it back in, by offsetting the start therefore offsetting the end
+      let isRowOutOfBounds = rowEnd >= logicalGameboard.size;
+      if (isRowOutOfBounds) {
+        // If rowEnd coincides with the logical gameboard size it is out of bounds by 1 so use +1
+        let offset = rowEnd - logicalGameboard.size;
+        rowEnd -= offset;
+        row -= offset;
+      }
+
+      if (logicalGameboard.checkOverlap(newShip, col, row)) {
+        return;
+      }
+
+      shipDroppedCopy.style.gridRowStart = row + 1;
+      shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
+      shipDroppedCopy.style.gridColumnStart = col + 1;
+      shipDroppedCopy.style.gridColumnEnd = `${col + 2}`;
+    } else if (newShip.orientation === "H") {
+      let isColOutOfBounds = colEnd >= logicalGameboard.size;
+      if (isColOutOfBounds) {
+        let offset = colEnd - logicalGameboard.size;
+        colEnd -= offset;
+        col -= offset;
+      }
+
+      if (logicalGameboard.checkOverlap(newShip, col, row)) {
+        return;
+      }
+
+      shipDroppedCopy.style.gridColumnStart = col + 1;
+      shipDroppedCopy.style.gridColumnEnd = `${colEnd + 1}`;
+      shipDroppedCopy.style.gridRowStart = row + 1;
+      shipDroppedCopy.style.gridRowEnd = `${row + 2}`;
+    }
+
+    shipDroppedCopy.style.zIndex = 3;
+
+    // Logically place ship in grid
+    logicalGameboard.placeShip(newShip, col, row);
+
+    console.log("New ship is ", newShip);
+  };
+
   const dropShip = function (e) {
     if (isShipSelected === true) {
       let shipDroppedCopy = document.createElement("div");
@@ -40,60 +98,7 @@ const dragDropController = (() => {
       let row = +e.target.dataset.row;
       let col = +e.target.dataset.col;
 
-      let newShip = ship();
-      newShip.type = draggableShipType;
-      let rowEnd = row + newShip.size;
-      let colEnd = col + newShip.size;
-
-      newShip.orientation = setOrientationFromPreference();
-
-      let board = document.querySelector(".board");
-
-      board.appendChild(shipDroppedCopy);
-
-      // TODO: Prevent overlap before placement
-      // Visually place ship image in grid
-      if (newShip.orientation === "V") {
-        // If out bounds calculate by how much it will be by and bring it back in, by offsetting the start therefore offsetting the end
-        let isRowOutOfBounds = rowEnd >= logicalGameboard.size;
-        if (isRowOutOfBounds) {
-          // If rowEnd coincides with the logical gameboard size it is out of bounds by 1 so use +1
-          let offset = rowEnd - logicalGameboard.size;
-          rowEnd -= offset;
-          row -= offset;
-        }
-
-        if (logicalGameboard.checkOverlap(newShip, col, row)) {
-          return;
-        }
-
-        shipDroppedCopy.style.gridRowStart = row + 1;
-        shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
-        shipDroppedCopy.style.gridColumnStart = col + 1;
-        shipDroppedCopy.style.gridColumnEnd = `${col + 2}`;
-      } else if (newShip.orientation === "H") {
-        let isColOutOfBounds = colEnd >= logicalGameboard.size;
-        if (isColOutOfBounds) {
-          let offset = colEnd - logicalGameboard.size;
-          colEnd -= offset;
-          col -= offset;
-        }
-
-        if (logicalGameboard.checkOverlap(newShip, col, row)) {
-          return;
-        }
-
-        shipDroppedCopy.style.gridColumnStart = col + 1;
-        shipDroppedCopy.style.gridColumnEnd = `${colEnd + 1}`;
-        shipDroppedCopy.style.gridRowStart = row + 1;
-        shipDroppedCopy.style.gridRowEnd = `${row + 2}`;
-      }
-
-      shipDroppedCopy.style.zIndex = 3;
-
-      // Logically place ship in grid
-      logicalGameboard.placeShip(newShip, col, row);
-      console.log("New ship is ", newShip);
+      placeAtCoordinates(col, row, shipDroppedCopy);
 
       isShipSelected = false;
       draggableShipType = "";
@@ -125,7 +130,7 @@ const dragDropController = (() => {
 
   document.addEventListener("mousedown", () => console.log("hello"));
 
-  return { init, getManipulatedGameboard };
+  return { init, getManipulatedGameboard, dropShip };
 })();
 
 module.exports = dragDropController;
