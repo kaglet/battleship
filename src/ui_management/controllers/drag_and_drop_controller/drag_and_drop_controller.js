@@ -27,7 +27,12 @@ const dragDropController = (() => {
   };
 
   // Visually place ship image in grid
-  const placeAtCoordinates = function (col, row, shipDroppedCopy) {
+  const placeAtCoordinates = function (
+    col,
+    row,
+    shipDroppedCopy,
+    draggableShipType
+  ) {
     let newShip = ship();
     newShip.type = draggableShipType;
     let rowEnd = row + newShip.size;
@@ -51,7 +56,7 @@ const dragDropController = (() => {
       }
 
       if (logicalGameboard.checkOverlap(newShip, col, row)) {
-        return;
+        return -1;
       }
 
       shipDroppedCopy.style.gridRowStart = row + 1;
@@ -82,6 +87,8 @@ const dragDropController = (() => {
     logicalGameboard.placeShip(newShip, col, row);
 
     console.log("New ship is ", newShip);
+
+    return 1;
   };
 
   const getShipImgFromChosenType = (type) => {
@@ -108,7 +115,7 @@ const dragDropController = (() => {
       let row = +e.target.dataset.row;
       let col = +e.target.dataset.col;
 
-      placeAtCoordinates(col, row, shipDroppedCopy);
+      placeAtCoordinates(col, row, shipDroppedCopy, draggableShipType);
       clearSelection();
     }
   };
@@ -126,19 +133,23 @@ const dragDropController = (() => {
     let ships = document.querySelectorAll(".ships img");
     ships.forEach((ship) => {
       ship.addEventListener("mousedown", () => markChosenShip(ship));
-      console.log("Ship listener attached");
     });
 
     let cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
       cell.addEventListener("click", dropShip);
-      console.log("Event listener attached to ", cell);
     });
   };
 
-  document.addEventListener("mousedown", () => console.log("hello"));
-
-  return { init, getManipulatedGameboard, dropShip };
+  return {
+    init,
+    getManipulatedGameboard,
+    dropShip,
+    placeAtCoordinates,
+    clearSelection,
+    getShipImgFromChosenType,
+    setOrientationFromPreference,
+  };
 })();
 
 module.exports = dragDropController;
