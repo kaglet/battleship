@@ -1,7 +1,7 @@
+const randomizeShipPlacement = require("../../../utility_functions/randomize_ships/randomize_ships");
 const footer = require("../../components/footer/footer");
 const header = require("../../components/header/header");
 const main = require("../../components/main/main");
-const shipSelectionPanel = require("../../components/pictures_display/pictures_display");
 const dragDropController = require("../drag_and_drop_controller/drag_and_drop_controller");
 
 const uiController = (() => {
@@ -10,6 +10,11 @@ const uiController = (() => {
 
     body.append(header(), main(), footer());
     dragDropController.init();
+
+    let randomizeBtn = document.querySelector("button.randomize");
+    // TODO: Remove all ships from selected board for randomization which is the player board of course anyway by default
+    // TODO: So randomization working here is fine although you may have to pass parameters for UI and logical board to do randomization on
+    randomizeBtn.addEventListener("click", randomizeShipPlacement);
   };
 
   return { init };

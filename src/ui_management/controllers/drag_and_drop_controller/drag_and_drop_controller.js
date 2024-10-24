@@ -40,9 +40,7 @@ const dragDropController = (() => {
 
     newShip.orientation = setOrientationFromPreference();
 
-    let board = document.querySelector(".board");
-
-    board.appendChild(shipDroppedCopy);
+    uiBoard.appendChild(shipDroppedCopy);
 
     // Prevent overlap before placement
     if (newShip.orientation === "V") {
@@ -139,6 +137,8 @@ const dragDropController = (() => {
     cells.forEach((cell) => {
       cell.addEventListener("click", dropShip);
     });
+
+    uiBoard = document.querySelector(".board");
   };
 
   return {
@@ -149,6 +149,19 @@ const dragDropController = (() => {
     clearSelection,
     getShipImgFromChosenType,
     setOrientationFromPreference,
+    // Manage boards acted on by drag and drop controller
+    set uiBoard(val) {
+      uiBoard = val;
+    },
+    get uiBoard() {
+      return uiBoard;
+    },
+    set logicalGameboard(val) {
+      logicalGameboard = val;
+    },
+    get logicalGameboard() {
+      return logicalGameboard;
+    },
   };
 })();
 

@@ -51,3 +51,9 @@ const randomizeShipPlacement = () => {
 };
 
 module.exports = randomizeShipPlacement;
+
+// TODO: Use player gameboard and CPU gameboard in a streamlined manner instead of creating a random new gameboard
+/* Then draw based off these logical gameboards that are populated, once by the dropShip function which must then get drawn 
+if it gets completed */
+/* TODO: So split up these 2 drawing the logical gameboard for the CPU and the ui gameboard after that completes, or specifying 
+whether to draw immediately, because they are coupled in the same code */
