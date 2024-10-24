@@ -2,6 +2,7 @@ const player = require("../basic_classes/player");
 
 const gameManager = (() => {
   let player1, player2;
+  let player1UIBoard, player2UIBoard;
 
   let beginBtn;
 
@@ -36,6 +37,18 @@ const gameManager = (() => {
     },
     get player2() {
       return player2;
+    },
+    set player1UIBoard(val) {
+      player1UIBoard = val;
+    },
+    set player1UIBoard(val) {
+      player1UIBoard = val;
+    },
+    get player2UIBoard() {
+      return player2UIBoard;
+    },
+    get player2UIBoard() {
+      return player2UIBoard;
     },
   };
 })();
