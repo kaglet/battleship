@@ -24,12 +24,20 @@ const gameManager = (() => {
   };
 
   // On win or lose conditions met display this
+  // As the game progresses wherever and as scores are tallied allow it to end
   const endGame = function () {
     displayWinner();
     displaySetupView();
   };
 
-  return {};
+  return {
+    get player1() {
+      return player1;
+    },
+    get player2() {
+      return player2;
+    },
+  };
 })();
 
 module.exports = gameManager;

@@ -1,4 +1,5 @@
 const ship = require("../../../basic_classes/ship");
+const gameManager = require("../../../controllers/game_manager.js");
 const imgToShipMapper = require("../../../controllers/image_to_ship_mapper.js");
 const gameboard = require("./../../../basic_classes/gameboard.js");
 
@@ -10,7 +11,7 @@ const dragDropController = (() => {
   let isShipSelected;
   let draggableShipType;
   let uiBoard;
-  let logicalGameboard = gameboard();
+  let logicalGameboard = gameManager.player1.playerGameboard;
 
   const getManipulatedGameboard = function () {
     return logicalGameboard;
