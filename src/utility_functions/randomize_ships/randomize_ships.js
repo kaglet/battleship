@@ -7,7 +7,7 @@ const dragDropController = require("../../ui_management/controllers/drag_and_dro
 const getRandomNumber = require("./random/random_num_in_range");
 
 // It manually must perform all the functions we specified, of selecting a ship then placing it.
-const randomizeShipPlacement = () => {
+const randomizeShipPlacement = (usedUIBoard, usedLogicalBoard) => {
   const generateCoords = function () {
     return { x: getRandomNumber(0, 9), y: getRandomNumber(0, 9) };
   };
@@ -30,6 +30,8 @@ const randomizeShipPlacement = () => {
       imgToShipMapper.getPicFromType(shipTypes[i])
     );
 
+    dragDropController.logicalGameboard = usedLogicalBoard;
+    dragDropController.uiBoard = usedUIBoard;
     // TODO: Randomize orientation unless set
     // TODO: Test on current board though random placement with random placement then allowing the CPU to automatically perform the task
     let result = dragDropController.placeAtCoordinates(

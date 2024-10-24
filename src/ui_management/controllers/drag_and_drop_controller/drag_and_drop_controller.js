@@ -11,7 +11,7 @@ const dragDropController = (() => {
   let isShipSelected;
   let draggableShipType;
   let uiBoard;
-  let logicalGameboard = gameManager.player1.playerGameboard;
+  let logicalGameboard;
 
   const getManipulatedGameboard = function () {
     return logicalGameboard;
@@ -41,6 +41,7 @@ const dragDropController = (() => {
 
     newShip.orientation = setOrientationFromPreference();
 
+    console.log(gameManager.player1UIBoard);
     uiBoard.appendChild(shipDroppedCopy);
 
     // Prevent overlap before placement
@@ -139,7 +140,8 @@ const dragDropController = (() => {
       cell.addEventListener("click", dropShip);
     });
 
-    uiBoard = document.querySelector(".board");
+    logicalGameboard = gameManager.player1.playerGameboard;
+    uiBoard = gameManager.player1UIBoard;
   };
 
   return {

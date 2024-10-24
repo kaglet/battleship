@@ -1,3 +1,4 @@
+const gameManager = require("../../../controllers/game_manager");
 const shipSelectionPanel = require("../pictures_display/pictures_display");
 const gameboard = require("./gameboard/gameboard");
 
@@ -19,7 +20,10 @@ const main = () => {
   randomizeBtn.classList.add("randomize");
   beginBtn.classList.add("begin");
 
-  container.append(gameboard(), randomizeBtn, beginBtn);
+  let playerGameboard = gameboard();
+  gameManager.player1UIBoard = playerGameboard;
+
+  container.append(playerGameboard, randomizeBtn, beginBtn);
   mainDisplay.append(container);
 
   return mainDisplay;
