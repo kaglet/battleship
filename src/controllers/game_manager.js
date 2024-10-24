@@ -41,11 +41,11 @@ const gameManager = (() => {
     set player1UIBoard(val) {
       player1UIBoard = val;
     },
-    set player1UIBoard(val) {
-      player1UIBoard = val;
+    set player2UIBoard(val) {
+      player2UIBoard = val;
     },
-    get player2UIBoard() {
-      return player2UIBoard;
+    get player1UIBoard() {
+      return player1UIBoard;
     },
     get player2UIBoard() {
       return player2UIBoard;
