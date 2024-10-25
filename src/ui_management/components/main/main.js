@@ -21,6 +21,7 @@ const main = () => {
   beginBtn.classList.add("begin");
 
   let playerGameboard = gameboard();
+  playerGameboard.classList.add("player", "1");
   gameManager.player1UIBoard = playerGameboard;
 
   container.append(playerGameboard, randomizeBtn, beginBtn);
