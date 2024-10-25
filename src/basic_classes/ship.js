@@ -14,6 +14,13 @@ const shipProto = {
   get orientation() {
     return this._orientation;
   },
+  set orientation(val) {
+    if (val === "H") {
+      this.setOrientationHorizontal();
+    } else if (val === "V") {
+      this.setOrientationVertical();
+    }
+  },
   set type(val) {
     switch (val) {
       case "battleship":

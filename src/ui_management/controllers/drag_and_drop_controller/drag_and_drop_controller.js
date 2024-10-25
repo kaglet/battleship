@@ -12,13 +12,18 @@ const dragDropController = (() => {
   let draggableShipType;
   let uiBoard;
   let logicalGameboard;
+  let orientationPreference;
 
   const getManipulatedGameboard = function () {
     return logicalGameboard;
   };
 
-  const setOrientationFromPreference = function () {
-    return "V";
+  const setOrientationFromPreference = function (pref) {
+    orientationPreference = pref;
+  };
+
+  const getOrientationFromPreference = function () {
+    return orientationPreference;
   };
 
   const markEndOfSelection = function () {
@@ -39,7 +44,7 @@ const dragDropController = (() => {
     let rowEnd = row + newShip.size;
     let colEnd = col + newShip.size;
 
-    newShip.orientation = setOrientationFromPreference();
+    newShip.orientation = getOrientationFromPreference();
 
     console.log(gameManager.player1UIBoard);
     uiBoard.appendChild(shipDroppedCopy);

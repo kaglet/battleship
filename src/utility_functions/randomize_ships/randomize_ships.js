@@ -32,6 +32,11 @@ const randomizeShipPlacement = (usedUIBoard, usedLogicalBoard) => {
 
     dragDropController.logicalGameboard = usedLogicalBoard;
     dragDropController.uiBoard = usedUIBoard;
+    if (getRandomNumber(1, 2) === 1) {
+      dragDropController.setOrientationFromPreference("V");
+    } else {
+      dragDropController.setOrientationFromPreference("H");
+    }
     // TODO: Randomize orientation unless set
     // TODO: Test on current board though random placement with random placement then allowing the CPU to automatically perform the task
     let result = dragDropController.placeAtCoordinates(
