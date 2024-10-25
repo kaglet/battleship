@@ -12,7 +12,7 @@ const dragDropController = (() => {
   let draggableShipType;
   let uiBoard;
   let logicalGameboard;
-  let orientationPreference;
+  let orientationPreference = "V";
 
   const getManipulatedGameboard = function () {
     return logicalGameboard;
@@ -64,6 +64,7 @@ const dragDropController = (() => {
         return -1;
       }
 
+      // shipDroppedCopy.style.transform = "rotate(-90deg)";
       shipDroppedCopy.style.gridRowStart = row + 1;
       shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
       shipDroppedCopy.style.gridColumnStart = col + 1;

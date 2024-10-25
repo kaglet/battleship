@@ -62,9 +62,9 @@ h1 {
   padding: 1rem;
 }
 
-.ships img {
-  flex: 1;
-  width: 10rem;
+.ships img:nth-child(5) {
+  width: 90px; 
+  height: 160px;
   background-repeat: no-repeat;
   background-size: cover;
 }
