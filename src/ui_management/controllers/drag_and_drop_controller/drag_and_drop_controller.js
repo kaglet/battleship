@@ -12,7 +12,7 @@ const dragDropController = (() => {
   let draggableShipType;
   let uiBoard;
   let logicalGameboard;
-  let orientationPreference = "V";
+  let orientationPreference = "H";
 
   const getManipulatedGameboard = function () {
     return logicalGameboard;
