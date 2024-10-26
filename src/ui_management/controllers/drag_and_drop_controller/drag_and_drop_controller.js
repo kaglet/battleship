@@ -12,7 +12,7 @@ const dragDropController = (() => {
   let draggableShipType;
   let uiBoard;
   let logicalGameboard;
-  let orientationPreference = "H";
+  let orientationPreference = "V";
 
   const getManipulatedGameboard = function () {
     return logicalGameboard;
@@ -113,7 +113,7 @@ const dragDropController = (() => {
   const dropShip = function (e) {
     if (isShipSelected === true) {
       let shipDroppedCopy = getShipImgFromChosenType(
-        imgToShipMapper.getPicFromType(draggableShipType)
+        imgToShipMapper.getPicFromType(draggableShipType, orientationPreference)
       );
 
       console.log(e.target);

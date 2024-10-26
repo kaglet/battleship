@@ -26,17 +26,21 @@ const randomizeShipPlacement = (usedUIBoard, usedLogicalBoard) => {
     // try place until all pieces are used, so go down list one by one
     /* TODO: Choose the board to place them to not the default drag and drop controller single board both the 
     logical one and the UI one presented (and managing which is controlled to be presented), including specifying the one that will */
-    let shipImg = dragDropController.getShipImgFromChosenType(
-      imgToShipMapper.getPicFromType(shipTypes[i])
-    );
-
+    let orientation;
     dragDropController.logicalGameboard = usedLogicalBoard;
     dragDropController.uiBoard = usedUIBoard;
     if (getRandomNumber(1, 2) === 1) {
+      orientation = "V";
       dragDropController.setOrientationFromPreference("V");
     } else {
+      orientation = "H";
       dragDropController.setOrientationFromPreference("H");
     }
+
+    let shipImg = dragDropController.getShipImgFromChosenType(
+      imgToShipMapper.getPicFromType(shipTypes[i]),
+      orientation
+    );
     // TODO: Randomize orientation unless set
     // TODO: Test on current board though random placement with random placement then allowing the CPU to automatically perform the task
     let result = dragDropController.placeAtCoordinates(
