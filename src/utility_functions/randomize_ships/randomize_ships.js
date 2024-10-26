@@ -31,15 +31,14 @@ const randomizeShipPlacement = (usedUIBoard, usedLogicalBoard) => {
     dragDropController.uiBoard = usedUIBoard;
     if (getRandomNumber(1, 2) === 1) {
       orientation = "V";
-      dragDropController.setOrientationFromPreference("V");
+      dragDropController.setOrientationFromPreference(orientation);
     } else {
       orientation = "H";
-      dragDropController.setOrientationFromPreference("H");
+      dragDropController.setOrientationFromPreference(orientation);
     }
 
     let shipImg = dragDropController.getShipImgFromChosenType(
-      imgToShipMapper.getPicFromType(shipTypes[i]),
-      orientation
+      imgToShipMapper.getPicFromType(shipTypes[i], orientation)
     );
     // TODO: Randomize orientation unless set
     // TODO: Test on current board though random placement with random placement then allowing the CPU to automatically perform the task
@@ -53,8 +52,8 @@ const randomizeShipPlacement = (usedUIBoard, usedLogicalBoard) => {
     dragDropController.clearSelection();
 
     if (result === -1) {
-      // retry placement
-      i--;
+      // explicitly leave i stuck and unchanged to retry placement
+      continue;
     } else if (result === 1) {
       i++;
     }

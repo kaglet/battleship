@@ -78,7 +78,7 @@ const dragDropController = (() => {
       }
 
       if (logicalGameboard.checkOverlap(newShip, col, row)) {
-        return;
+        return -1;
       }
 
       shipDroppedCopy.style.gridColumnStart = col + 1;
@@ -97,6 +97,7 @@ const dragDropController = (() => {
     return 1;
   };
 
+  // Create ship img to drop down from chosen url
   const getShipImgFromChosenType = (type) => {
     let img = document.createElement("div");
     img.classList.add("ship");
