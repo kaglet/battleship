@@ -2,8 +2,8 @@
 // This works for player and for CPU
 
 const ship = require("../../basic_classes/ship");
-const imgToShipMapper = require("../../controllers/image_to_ship_mapper");
-const dragDropController = require("../../ui_management/controllers/drag_and_drop_controller/drag_and_drop_controller");
+const imgToShipMapper = require("../image_to_ship_mapper/image_to_ship_mapper");
+const dragDropController = require("../ui_management/controllers/drag_and_drop_controller/drag_and_drop_controller");
 const getRandomNumber = require("./random/random_num_in_range");
 
 // It manually must perform all the functions we specified, of selecting a ship then placing it.

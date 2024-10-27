@@ -1,4 +1,4 @@
-const gameManager = require("../../../controllers/game_manager");
+const gameManager = require("../../../game_manager/game_manager");
 const shipSelectionPanel = require("../pictures_display/pictures_display");
 const gameboard = require("./gameboard/gameboard");
 

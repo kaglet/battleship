@@ -1,8 +1,8 @@
-const carrier = require("../../../assets/images/carrier.svg");
-const battleship = require("../../../assets/images/battleship.svg");
-const patrolBoat = require("../../../assets/images/patrolBoat.svg");
-const destroyer = require("../../../assets/images/destroyer.svg");
-const submarine = require("../../../assets/images/submarine.svg");
+const carrier = require("../../../../assets/images/carrier.svg");
+const battleship = require("../../../../assets/images/battleship.svg");
+const patrolBoat = require("../../../../assets/images/patrolBoat.svg");
+const destroyer = require("../../../../assets/images/destroyer.svg");
+const submarine = require("../../../../assets/images/submarine.svg");
 
 const shipSelectionPanel = () => {
   let shipsDisplay = document.createElement("section");

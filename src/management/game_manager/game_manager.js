@@ -1,4 +1,4 @@
-const player = require("../basic_classes/player");
+const player = require("../../basic_classes/player");
 
 const gameManager = (() => {
   let player1, player2;
@@ -15,14 +15,6 @@ const gameManager = (() => {
   };
 
   setPlayerTypes();
-
-  const init = function () {
-    beginBtn = document.querySelector("button.begin");
-
-    beginBtn.addEventListener("click", () => {
-      displayGameplayView();
-    });
-  };
 
   // On win or lose conditions met display this
   // As the game progresses wherever and as scores are tallied allow it to end

@@ -1,18 +1,18 @@
 // Pre-game setup
 // Controls what happens before game even starts
-
-const gameboard = require("../basic_classes/gameboard");
-const randomizeShipPlacement = require("../utility_functions/randomize_ships/randomize_ships");
-const gameManager = require("./game_manager");
+const gameboard = require("../../basic_classes/gameboard");
+const randomizeShipPlacement = require("../randomize_ships/randomize_ships");
+const gameManager = require("../game_manager/game_manager");
 
 // Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
   /* TODO: Decide where to store player data, not here, it is not its responsibility and it is better spread out elsewhere
 This is just for setup, define setup */
-  let randomizeButton;
+  let randomizeBtn, beginBtn;
 
   const init = function () {
-    let randomizeBtn = document.querySelector("button.randomize");
+    beginBtn = document.querySelector("button.begin");
+    randomizeBtn = document.querySelector("button.randomize");
     // TODO: Remove all ships from selected board for randomization which is the player board of course anyway by default
     // TODO: So randomization working here is fine although you may have to pass parameters for UI and logical board to do randomization on
     randomizeBtn.addEventListener("click", () => {
@@ -24,6 +24,10 @@ This is just for setup, define setup */
         gameManager.player1UIBoard,
         gameManager.player1.playerGameboard
       );
+    });
+
+    beginBtn.addEventListener("click", () => {
+      createPlayArea();
     });
   };
 
