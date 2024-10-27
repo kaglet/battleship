@@ -3,6 +3,7 @@
 const gameboard = require("../../basic_classes/gameboard");
 const randomizeShipPlacement = require("../randomize_ships/randomize_ships");
 const gameManager = require("../game_manager/game_manager");
+const completeGameplayView = require("../ui_management/functionality/complete_gameplay_view/complete_gameplay_view");
 
 // Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
@@ -13,8 +14,6 @@ This is just for setup, define setup */
   const init = function () {
     beginBtn = document.querySelector("button.begin");
     randomizeBtn = document.querySelector("button.randomize");
-    // TODO: Remove all ships from selected board for randomization which is the player board of course anyway by default
-    // TODO: So randomization working here is fine although you may have to pass parameters for UI and logical board to do randomization on
     randomizeBtn.addEventListener("click", () => {
       // Delete old and reassign a new gameboard
       gameManager.player1.playerGameboard = gameboard();
@@ -27,7 +26,7 @@ This is just for setup, define setup */
     });
 
     beginBtn.addEventListener("click", () => {
-      createPlayArea();
+      completeGameplayView();
     });
   };
 
@@ -43,9 +42,7 @@ This is just for setup, define setup */
     });
   };
 
-  const populateUIBoardFromLogical = (board) => {};
-
-  return { init, clearUIBoard, populateUIBoardFromLogical };
+  return { init, clearUIBoard };
 })();
 
 module.exports = setupManager;

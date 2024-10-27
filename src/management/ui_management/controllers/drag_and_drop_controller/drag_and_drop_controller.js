@@ -90,6 +90,8 @@ const dragDropController = (() => {
     shipDroppedCopy.style.zIndex = 3;
 
     // Logically place ship in grid
+    newShip.x = col;
+    newShip.y = row;
     logicalGameboard.placeShip(newShip, col, row);
 
     console.log("New ship is ", newShip);

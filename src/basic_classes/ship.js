@@ -1,4 +1,16 @@
 const shipProto = {
+  set x(val) {
+    this._x = val;
+  },
+  get x() {
+    return this._x;
+  },
+  set y(val) {
+    this._y = val;
+  },
+  get y() {
+    return this._y;
+  },
   get size() {
     return this._size;
   },
