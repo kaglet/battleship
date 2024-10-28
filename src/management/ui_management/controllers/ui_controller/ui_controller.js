@@ -1,4 +1,4 @@
-const setupManager = require("../../../setup_manager/setup_manager.js");
+const setupManager = require("../../../setup_manager/setup_manager");
 const footer = require("../../components/footer/footer");
 const header = require("../../components/header/header");
 const main = require("../../components/main/main");
@@ -11,6 +11,7 @@ const uiController = (() => {
     body.append(header(), main(), footer());
     dragDropController.init();
     setupManager.init();
+    console.log(setupManager);
   };
 
   return { init };

@@ -1,4 +1,6 @@
 const player = require("../../basic_classes/player");
+const imgToShipMapper = require("../image_to_ship_mapper/image_to_ship_mapper.js");
+const setupManager = require("../setup_manager/setup_manager.js");
 
 const gameManager = (() => {
   let player1, player2;
@@ -14,16 +16,21 @@ const gameManager = (() => {
     player2.setTypeToBot();
   };
 
+  const displayWinner = function () {};
+
   setPlayerTypes();
+  console.log(imgToShipMapper);
+  console.log(setupManager);
 
   // On win or lose conditions met display this
   // As the game progresses wherever and as scores are tallied allow it to end
   const endGame = function () {
     displayWinner();
-    displaySetupView();
+    console.log(setupManager);
   };
 
   return {
+    endGame,
     get player1() {
       return player1;
     },

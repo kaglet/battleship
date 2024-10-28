@@ -1,5 +1,6 @@
 const dragDropController = require("../ui_management/controllers/drag_and_drop_controller/drag_and_drop_controller");
 
+// TODO: Delete this redundant outdated method, good utility method but possibly not needed anymore
 const populateUIBoardFromLogical = (uiBoard, logicalBoard) => {
   // how do I manually place and render ships, well you do it for their given length and move on
   // or simply use the ships list of each board to populate, that might be easiest

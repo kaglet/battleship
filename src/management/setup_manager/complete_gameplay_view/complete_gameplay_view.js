@@ -11,6 +11,14 @@ const completeGameplayView = () => {
 
   let buttons = document.querySelectorAll(".main section.container button");
 
+  let backToSetupBtn = document.createElement("button");
+  backToSetupBtn.classList.add("back", "setup");
+  backToSetupBtn.textContent = "<-";
+
+  backToSetupBtn.addEventListener("click", () => {
+    gameManager.endGame();
+  });
+
   cpuBoard.classList.add("cpu", "board");
 
   mainSection.append(cpuBoard);
@@ -18,6 +26,8 @@ const completeGameplayView = () => {
   buttons.forEach((button) => {
     buttonsContainer.removeChild(button);
   });
+
+  buttonsContainer.append(backToSetupBtn);
   // use populate UI grid from logical grid command and section the function off for use here
   // we'll need to use this to refresh the grid during play though to indicate any changes
 };

@@ -4,7 +4,6 @@ const gameboard = require("../../basic_classes/gameboard");
 const randomizeShipPlacement = require("../randomize_ships/randomize_ships");
 const gameManager = require("../game_manager/game_manager");
 const completeGameplayView = require("./complete_gameplay_view/complete_gameplay_view");
-const dragDropController = require("../ui_management/controllers/drag_and_drop_controller/drag_and_drop_controller");
 
 // Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
@@ -12,14 +11,26 @@ const setupManager = (() => {
 This is just for setup, define setup */
   let randomizeBtn, beginBtn;
 
+  const clearP1Board = function () {
+    // Delete old and reassign a new gameboard
+    gameManager.player1.playerGameboard = gameboard();
+    // Clear current board for player 1 removing any svgs on grid
+    clearUIBoard(gameManager.player1UIBoard);
+  };
+
+  const clearP2Board = function () {
+    // Delete old and reassign a new gameboard
+    gameManager.player2.playerGameboard = gameboard();
+    // Clear current board for player 1 removing any svgs on grid
+    clearUIBoard(gameManager.player2UIBoard);
+  };
+
   const init = function () {
     beginBtn = document.querySelector("button.begin");
     randomizeBtn = document.querySelector("button.randomize");
     randomizeBtn.addEventListener("click", () => {
       // Delete old and reassign a new gameboard
-      gameManager.player1.playerGameboard = gameboard();
-      // Clear current board for player 1 removing any svgs on grid
-      clearUIBoard(gameManager.player1UIBoard);
+      clearP1Board();
       randomizeShipPlacement(
         gameManager.player1UIBoard,
         gameManager.player1.playerGameboard
@@ -27,6 +38,7 @@ This is just for setup, define setup */
     });
 
     beginBtn.addEventListener("click", () => {
+      console.log(setupManager);
       completeGameplayView();
       gameManager.player2UIBoard = document.querySelector(".cpu.board");
 
@@ -38,7 +50,7 @@ This is just for setup, define setup */
   };
 
   // I think when they are destroyed and new instances are created we don't need to manage clearing
-  const clearUIBoard = (board) => {
+  const clearUIBoard = function (board) {
     let children = board.children;
     let childrenArr = Array.from(children);
 
@@ -49,7 +61,16 @@ This is just for setup, define setup */
     });
   };
 
-  return { init, clearUIBoard };
+  const displaySetupView = function () {
+    let cpuBoard = document.querySelector(".cpu.board");
+    let mainSection = document.querySelector("section.main");
+
+    clearP2Board();
+    mainSection.removeChild(cpuBoard);
+    clearP1Board();
+  };
+
+  return { init, clearUIBoard, displaySetupView };
 })();
 
 module.exports = setupManager;

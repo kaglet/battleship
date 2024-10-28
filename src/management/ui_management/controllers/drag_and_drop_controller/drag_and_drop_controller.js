@@ -2,6 +2,7 @@ const ship = require("../../../../basic_classes/ship.js");
 const gameManager = require("../../../game_manager/game_manager.js");
 const imgToShipMapper = require("../../../image_to_ship_mapper/image_to_ship_mapper.js");
 const gameboard = require("../../../../basic_classes/gameboard.js");
+const setupManager = require("../../../setup_manager/setup_manager.js");
 
 // Manages drag and drop functionality of ship images onto board
 // One approach is to generate new ship in its place and move the old one (make its position absolute)
