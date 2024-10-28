@@ -3,6 +3,7 @@
 
 const ship = require("../../basic_classes/ship");
 const imgToShipMapper = require("../image_to_ship_mapper/image_to_ship_mapper");
+const setupManager = require("../setup_manager/setup_manager");
 const dragDropController = require("../ui_management/controllers/drag_and_drop_controller/drag_and_drop_controller");
 const getRandomNumber = require("./random/random_num_in_range");
 
