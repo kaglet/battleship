@@ -1,3 +1,4 @@
+const gameManager = require("../../game_manager/game_manager");
 const gameboard = require("../../ui_management/components/main/gameboard/gameboard");
 
 // displayGameplayView
@@ -10,7 +11,7 @@ const completeGameplayView = () => {
 
   let buttons = document.querySelectorAll(".main section.container button");
 
-  cpuBoard.classList.add("cpu");
+  cpuBoard.classList.add("cpu", "board");
 
   mainSection.append(cpuBoard);
   mainSection.removeChild(shipsDisplay);
