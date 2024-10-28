@@ -3,7 +3,7 @@
 const gameboard = require("../../basic_classes/gameboard");
 const randomizeShipPlacement = require("../randomize_ships/randomize_ships");
 const gameManager = require("../game_manager/game_manager");
-const completeGameplayView = require("../ui_management/functionality/complete_gameplay_view/complete_gameplay_view");
+const completeGameplayView = require("./complete_gameplay_view/complete_gameplay_view");
 
 // Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
