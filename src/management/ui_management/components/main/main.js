@@ -1,5 +1,6 @@
 const gameManager = require("../../../game_manager/game_manager");
 const shipSelectionPanel = require("../pictures_display/pictures_display");
+const createButtons = require("./button_options/create_buttons");
 const gameboard = require("./gameboard/gameboard");
 
 const main = () => {
@@ -11,14 +12,7 @@ const main = () => {
   let container = document.createElement("section");
   container.classList.add("container");
 
-  let randomizeBtn = document.createElement("button");
-  let beginBtn = document.createElement("button");
-
-  randomizeBtn.textContent = "randomize";
-  beginBtn.textContent = "begin";
-
-  randomizeBtn.classList.add("randomize");
-  beginBtn.classList.add("begin");
+  let { randomizeBtn, beginBtn } = createButtons();
 
   let playerGameboard = gameboard();
   playerGameboard.classList.add("player", "1");
@@ -26,6 +20,8 @@ const main = () => {
 
   container.append(playerGameboard, randomizeBtn, beginBtn);
   mainDisplay.append(container);
+
+  mainDisplay.classList.toggle("in-setup");
 
   return mainDisplay;
 };

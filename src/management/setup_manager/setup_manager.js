@@ -3,7 +3,9 @@
 const gameboard = require("../../basic_classes/gameboard");
 const randomizeShipPlacement = require("../randomize_ships/randomize_ships");
 const gameManager = require("../game_manager/game_manager");
-const completeGameplayView = require("./complete_gameplay_view/complete_gameplay_view");
+const createGameplayView = require("./create_gameplay_view/create_gameplay_view");
+const createButtons = require("../ui_management/components/main/button_options/create_buttons");
+const shipSelectionPanel = require("../ui_management/components/pictures_display/pictures_display");
 
 // Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
@@ -39,7 +41,7 @@ This is just for setup, define setup */
 
     beginBtn.addEventListener("click", () => {
       console.log(setupManager);
-      completeGameplayView();
+      createGameplayView();
       gameManager.player2UIBoard = document.querySelector(".cpu.board");
 
       randomizeShipPlacement(
@@ -62,11 +64,18 @@ This is just for setup, define setup */
   };
 
   const displaySetupView = function () {
-    let cpuBoard = document.querySelector(".cpu.board");
+    // TODO: Too complicated, just draw and redraw entire views and have functions that reconstruct main section
+    let cpuBoard = gameManager.player2UIBoard;
+    let p1Board = gameManager.player1UIBoard;
     let mainSection = document.querySelector("section.main");
+    let container = document.querySelector(".main section.container");
+    let { randomizeBtn, beginBtn } = createButtons();
+    let shipsDisplay = shipSelectionPanel();
 
     clearP2Board();
     mainSection.removeChild(cpuBoard);
+    mainSection.insertBefore(shipsDisplay, p1Board);
+    container.append(randomizeBtn, beginBtn);
     clearP1Board();
   };
 

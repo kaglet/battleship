@@ -18,14 +18,6 @@ const shipSelectionPanel = () => {
     shipsDisplay.append(img);
   });
 
-  // let ship1 = document.createElement("img");
-  // ship1.style.backgroundImage = `url("${carrier}")`;
-
-  // ship1.setAttribute("data-url", ship1.style.backgroundImage);
-  // ship1.classList.add("ship");
-
-  // shipsDisplay.append(ship1);
-
   return shipsDisplay;
 };
 

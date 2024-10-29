@@ -46,8 +46,17 @@ h1 {
 
 .main {
   flex: 1;
-  display: flex;
+}
+
+.in-setup.main {
   gap: 4rem;
+  display: flex;
+}
+
+.main.in-game button.back.setup {
+  background-color: pink;
+  grid-column: 1 / span 2;
+  width: fit-content;
 }
 
 .cell {
@@ -78,11 +87,18 @@ h1 {
   /* background-size: cover; */
 }
 
-.main > .container {
+.in-setup.main > .container {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   align-items: center;
+  place-content: center;
+}
+
+.in-game.main {
+  display: grid;
+  grid-template: auto 1fr / 1fr 1fr;
+  gap: 2rem;
 }
 
 button {

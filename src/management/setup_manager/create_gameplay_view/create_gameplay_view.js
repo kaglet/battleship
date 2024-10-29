@@ -2,14 +2,17 @@ const gameManager = require("../../game_manager/game_manager");
 const gameboard = require("../../ui_management/components/main/gameboard/gameboard");
 
 // displayGameplayView
-const completeGameplayView = () => {
+const createGameplayView = () => {
   let cpuBoard = gameboard();
+  let playerBoard = gameboard();
   let mainSection = document.querySelector(".main");
-  let shipsDisplay = document.querySelector(".ships.selection-panel");
 
-  let buttonsContainer = document.querySelector(".main section.container");
+  let children = mainSection.children;
+  let childrenArr = Array.from(children);
 
-  let buttons = document.querySelectorAll(".main section.container button");
+  childrenArr.forEach((childNode) => {
+    mainSection.removeChild(childNode);
+  });
 
   let backToSetupBtn = document.createElement("button");
   backToSetupBtn.classList.add("back", "setup");
@@ -21,15 +24,13 @@ const completeGameplayView = () => {
 
   cpuBoard.classList.add("cpu", "board");
 
-  mainSection.append(cpuBoard);
-  mainSection.removeChild(shipsDisplay);
-  buttons.forEach((button) => {
-    buttonsContainer.removeChild(button);
-  });
+  mainSection.append(backToSetupBtn, playerBoard, cpuBoard);
 
-  buttonsContainer.append(backToSetupBtn);
+  mainSection.classList.toggle("in-game");
+  mainSection.classList.toggle("in-setup");
+
   // use populate UI grid from logical grid command and section the function off for use here
   // we'll need to use this to refresh the grid during play though to indicate any changes
 };
 
-module.exports = completeGameplayView;
+module.exports = createGameplayView;
