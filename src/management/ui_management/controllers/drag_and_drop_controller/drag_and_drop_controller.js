@@ -109,16 +109,15 @@ const dragDropController = (() => {
 
     let adjustedCoords = readjustOutOfBoundsShip(newShip, col, row);
 
-    if (
-      placeShipInUIBoard(
-        shipDroppedCopy,
-        adjustedCoords.colStart + 1,
-        adjustedCoords.colEnd + 1,
-        adjustedCoords.rowStart + 1,
-        adjustedCoords.rowEnd + 1
-      ) === -1
-    )
-      return -1;
+    if (adjustedCoords === -1) return -1;
+
+    placeShipInUIBoard(
+      shipDroppedCopy,
+      adjustedCoords.colStart + 1,
+      adjustedCoords.colEnd + 1,
+      adjustedCoords.rowStart + 1,
+      adjustedCoords.rowEnd + 1
+    );
     // Logically place ship in grid
     newShip.x = adjustedCoords.colStart;
     newShip.y = adjustedCoords.colEnd;
