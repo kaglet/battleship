@@ -23,6 +23,7 @@ const createGameplayView = () => {
   });
 
   cpuBoard.classList.add("cpu", "board");
+  playerBoard.classList.add("player", "1");
 
   mainSection.append(backToSetupBtn, playerBoard, cpuBoard);
 

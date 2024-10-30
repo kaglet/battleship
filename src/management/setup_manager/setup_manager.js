@@ -6,6 +6,7 @@ const gameManager = require("../game_manager/game_manager");
 const createGameplayView = require("./create_gameplay_view/create_gameplay_view");
 const createButtons = require("../ui_management/components/main/button_options/create_buttons");
 const shipSelectionPanel = require("../ui_management/components/pictures_display/pictures_display");
+const populateUIBoardFromLogical = require("../populate_ui_board/populate_ui_board");
 
 // Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
@@ -42,11 +43,16 @@ This is just for setup, define setup */
     beginBtn.addEventListener("click", () => {
       console.log(setupManager);
       createGameplayView();
+      gameManager.player1UIBoard = document.querySelector(".player.board");
       gameManager.player2UIBoard = document.querySelector(".cpu.board");
 
+      populateUIBoardFromLogical(
+        gameManager.player1UIBoard,
+        gameManager.player1.playerGameboard
+      );
       randomizeShipPlacement(
         gameManager.player2UIBoard,
-        gameManager.player1.playerGameboard
+        gameManager.player2.playerGameboard
       );
     });
   };

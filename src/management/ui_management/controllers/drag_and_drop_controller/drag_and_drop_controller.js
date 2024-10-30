@@ -33,23 +33,9 @@ const dragDropController = (() => {
      Each time ship is dropped increase count for that type and if destroyed decrease count for that type*/
   };
 
-  // Visually place ship image in grid
-  const placeAtCoordinates = function (
-    col,
-    row,
-    shipDroppedCopy,
-    draggableShipType
-  ) {
-    let newShip = ship();
-    newShip.type = draggableShipType;
+  const readjustOutOfBoundsShip = function (newShip, col, row) {
     let rowEnd = row + newShip.size;
     let colEnd = col + newShip.size;
-
-    newShip.orientation = getOrientationFromPreference();
-
-    console.log(gameManager.player1UIBoard);
-    uiBoard.appendChild(shipDroppedCopy);
-
     // Prevent overlap before placement
     if (newShip.orientation === "V") {
       // If out bounds calculate by how much it will be by and bring it back in, by offsetting the start therefore offsetting the end
@@ -65,11 +51,12 @@ const dragDropController = (() => {
         return -1;
       }
 
-      // shipDroppedCopy.style.transform = "rotate(-90deg)";
-      shipDroppedCopy.style.gridRowStart = row + 1;
-      shipDroppedCopy.style.gridRowEnd = `${rowEnd + 1}`;
-      shipDroppedCopy.style.gridColumnStart = col + 1;
-      shipDroppedCopy.style.gridColumnEnd = `${col + 2}`;
+      return {
+        rowStart: row,
+        rowEnd: rowEnd,
+        colStart: col,
+        colEnd: col + 1,
+      };
     } else if (newShip.orientation === "H") {
       let isColOutOfBounds = colEnd >= logicalGameboard.size;
       if (isColOutOfBounds) {
@@ -82,20 +69,60 @@ const dragDropController = (() => {
         return -1;
       }
 
-      shipDroppedCopy.style.gridColumnStart = col + 1;
-      shipDroppedCopy.style.gridColumnEnd = `${colEnd + 1}`;
-      shipDroppedCopy.style.gridRowStart = row + 1;
-      shipDroppedCopy.style.gridRowEnd = `${row + 2}`;
+      return {
+        rowStart: row,
+        rowEnd: row + 1,
+        colStart: col,
+        colEnd: colEnd,
+      };
     }
+  };
 
+  const placeShipInUIBoard = function (
+    shipDroppedCopy,
+    colStart,
+    colEnd,
+    rowStart,
+    rowEnd
+  ) {
+    shipDroppedCopy.style.gridColumnStart = colStart;
+    shipDroppedCopy.style.gridColumnEnd = colEnd;
+    shipDroppedCopy.style.gridRowStart = rowStart;
+    shipDroppedCopy.style.gridRowEnd = rowEnd;
     shipDroppedCopy.style.zIndex = 3;
+  };
 
+  // Visually place ship image in grid
+  const placeAtCoordinates = function (
+    col,
+    row,
+    shipDroppedCopy,
+    draggableShipType
+  ) {
+    let newShip = ship();
+    newShip.type = draggableShipType;
+
+    newShip.orientation = getOrientationFromPreference();
+
+    console.log(gameManager.player1UIBoard);
+    uiBoard.appendChild(shipDroppedCopy);
+
+    let adjustedCoords = readjustOutOfBoundsShip(newShip, col, row);
+
+    if (
+      placeShipInUIBoard(
+        shipDroppedCopy,
+        adjustedCoords.colStart + 1,
+        adjustedCoords.colEnd + 1,
+        adjustedCoords.rowStart + 1,
+        adjustedCoords.rowEnd + 1
+      ) === -1
+    )
+      return -1;
     // Logically place ship in grid
-    newShip.x = col;
-    newShip.y = row;
-    logicalGameboard.placeShip(newShip, col, row);
-
-    console.log("New ship is ", newShip);
+    newShip.x = adjustedCoords.colStart;
+    newShip.y = adjustedCoords.colEnd;
+    logicalGameboard.placeShip(newShip, newShip.x, newShip.y);
 
     return 1;
   };
