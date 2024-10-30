@@ -120,7 +120,7 @@ const dragDropController = (() => {
     );
     // Logically place ship in grid
     newShip.x = adjustedCoords.colStart;
-    newShip.y = adjustedCoords.colEnd;
+    newShip.y = adjustedCoords.rowStart;
     logicalGameboard.placeShip(newShip, newShip.x, newShip.y);
 
     return 1;
