@@ -1,12 +1,13 @@
 // Pre-game setup
 // Controls what happens before game even starts
-const gameboard = require("../../basic_classes/gameboard");
+const logicalGameboard = require("../../basic_classes/gameboard");
 const randomizeShipPlacement = require("../randomize_ships/randomize_ships");
 const gameManager = require("../game_manager/game_manager");
 const createGameplayView = require("./create_gameplay_view/create_gameplay_view");
 const createButtons = require("../ui_management/components/main/button_options/create_buttons");
 const shipSelectionPanel = require("../ui_management/components/pictures_display/pictures_display");
 const populateUIBoardFromLogical = require("../populate_ui_board/populate_ui_board");
+const uiGameboard = require("../ui_management/components/main/gameboard/gameboard");
 
 // Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
@@ -14,26 +15,39 @@ const setupManager = (() => {
 This is just for setup, define setup */
   let randomizeBtn, beginBtn;
 
-  const clearP1Board = function () {
-    // Delete old and reassign a new gameboard
-    gameManager.player1.playerGameboard = gameboard();
-    // Clear current board for player 1 removing any svgs on grid
-    clearUIBoard(gameManager.player1UIBoard);
-  };
+  const resetter = (function () {
+    const resetP1LogicalBoard = function () {
+      // Delete old and reassign a new gameboard
+      gameManager.player1.playerGameboard = logicalGameboard();
+    };
 
-  const clearP2Board = function () {
-    // Delete old and reassign a new gameboard
-    gameManager.player2.playerGameboard = gameboard();
-    // Clear current board for player 1 removing any svgs on grid
-    clearUIBoard(gameManager.player2UIBoard);
-  };
+    const resetP2LogicalBoard = function () {
+      // Delete old and reassign a new gameboard
+      gameManager.player2.playerGameboard = logicalGameboard();
+    };
+
+    const resetP1UIBoard = function () {
+      gameManager.player1UIBoard = uiGameboard();
+    };
+
+    const resetP2UIBoard = function () {
+      gameManager.player2UIBoard = uiGameboard();
+    };
+
+    return {
+      resetP1LogicalBoard,
+      resetP1UIBoard,
+      resetP2LogicalBoard,
+      resetP2UIBoard,
+    };
+  })();
 
   const init = function () {
     beginBtn = document.querySelector("button.begin");
     randomizeBtn = document.querySelector("button.randomize");
     randomizeBtn.addEventListener("click", () => {
       // Delete old and reassign a new gameboard
-      clearP1Board();
+      resetter.resetP1LogicalBoard();
       randomizeShipPlacement(
         gameManager.player1UIBoard,
         gameManager.player1.playerGameboard
@@ -71,18 +85,28 @@ This is just for setup, define setup */
 
   const displaySetupView = function () {
     // TODO: Too complicated, just draw and redraw entire views and have functions that reconstruct main section
-    let cpuBoard = gameManager.player2UIBoard;
     let p1Board = gameManager.player1UIBoard;
     let mainSection = document.querySelector("section.main");
-    let container = document.querySelector(".main section.container");
     let { randomizeBtn, beginBtn } = createButtons();
     let shipsDisplay = shipSelectionPanel();
+    let btnContainer = document.createElement("section");
+    btnContainer.classList.add("button", "container");
 
-    clearP2Board();
-    mainSection.removeChild(cpuBoard);
-    mainSection.insertBefore(shipsDisplay, p1Board);
-    container.append(randomizeBtn, beginBtn);
-    clearP1Board();
+    let childrenArr = Array.from(mainSection.children);
+    childrenArr.forEach((child) => {
+      mainSection.removeChild(child);
+    });
+
+    // reset references
+    resetter.resetP1LogicalBoard();
+    resetter.resetP1UIBoard();
+    resetter.resetP2LogicalBoard();
+    resetter.resetP2UIBoard();
+    // Replace UI gameboards
+
+    btnContainer.append(randomizeBtn, beginBtn);
+
+    mainSection.append(shipsDisplay, p1Board, btnContainer);
   };
 
   return { init, clearUIBoard, displaySetupView };
