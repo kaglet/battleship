@@ -85,6 +85,7 @@ const dragDropController = (() => {
     rowStart,
     rowEnd
   ) {
+    uiBoard.appendChild(shipDroppedCopy);
     shipDroppedCopy.style.gridColumnStart = colStart;
     shipDroppedCopy.style.gridColumnEnd = colEnd;
     shipDroppedCopy.style.gridRowStart = rowStart;
@@ -105,7 +106,6 @@ const dragDropController = (() => {
     newShip.orientation = getOrientationFromPreference();
 
     console.log(gameManager.player1UIBoard);
-    uiBoard.appendChild(shipDroppedCopy);
 
     let adjustedCoords = readjustOutOfBoundsShip(newShip, col, row);
 
@@ -188,6 +188,7 @@ const dragDropController = (() => {
     clearSelection,
     getShipImgFromChosenType,
     setOrientationFromPreference,
+    placeShipInUIBoard,
     // Manage boards acted on by drag and drop controller
     set uiBoard(val) {
       uiBoard = val;

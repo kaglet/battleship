@@ -15,7 +15,23 @@ const populateUIBoardFromLogical = (uiBoard, logicalBoard) => {
     let shipImg = dragDropController.getShipImgFromChosenType(
       imgToShipMapper.getPicFromType(ship.type, ship.orientation)
     );
-    dragDropController.placeAtCoordinates(ship.x, ship.y, shipImg, ship.type);
+    if (ship.orientation === "V") {
+      dragDropController.placeShipInUIBoard(
+        shipImg,
+        ship.x + 1,
+        ship.x + 2,
+        ship.y + 1,
+        ship.y + ship.size + 1
+      );
+    } else if (ship.orientation === "H") {
+      dragDropController.placeShipInUIBoard(
+        shipImg,
+        ship.x + 1,
+        ship.x + ship.size + 1,
+        ship.y + 1,
+        ship.y + 2
+      );
+    }
   });
 };
 
