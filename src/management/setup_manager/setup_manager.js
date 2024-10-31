@@ -9,6 +9,7 @@ const shipSelectionPanel = require("../ui_management/components/pictures_display
 const populateUIBoardFromLogical = require("../populate_ui_board/populate_ui_board");
 const uiGameboard = require("../ui_management/components/main/gameboard/gameboard");
 const resetter = require("./resetter/resetter");
+const dragDropController = require("../ui_management/controllers/drag_and_drop_controller/drag_and_drop_controller");
 
 // Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
@@ -79,11 +80,14 @@ This is just for setup, define setup */
     resetter.resetP2UIBoard();
     // Replace UI gameboards
 
-    container.append(p1Board, randomizeBtn, beginBtn);
+    container.append(gameManager.player1UIBoard, randomizeBtn, beginBtn);
 
     mainSection.append(shipsDisplay, container);
     mainSection.classList.toggle("in-setup");
     mainSection.classList.toggle("in-game");
+
+    dragDropController.init();
+    init();
   };
 
   return { init, clearUIBoard, displaySetupView };
