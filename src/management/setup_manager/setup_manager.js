@@ -64,8 +64,8 @@ This is just for setup, define setup */
     let mainSection = document.querySelector("section.main");
     let { randomizeBtn, beginBtn } = createButtons();
     let shipsDisplay = shipSelectionPanel();
-    let btnContainer = document.createElement("section");
-    btnContainer.classList.add("button", "container");
+    let container = document.createElement("section");
+    container.classList.add("container");
 
     let childrenArr = Array.from(mainSection.children);
     childrenArr.forEach((child) => {
@@ -79,9 +79,11 @@ This is just for setup, define setup */
     resetter.resetP2UIBoard();
     // Replace UI gameboards
 
-    btnContainer.append(randomizeBtn, beginBtn);
+    container.append(p1Board, randomizeBtn, beginBtn);
 
-    mainSection.append(shipsDisplay, p1Board, btnContainer);
+    mainSection.append(shipsDisplay, container);
+    mainSection.classList.toggle("in-setup");
+    mainSection.classList.toggle("in-game");
   };
 
   return { init, clearUIBoard, displaySetupView };
