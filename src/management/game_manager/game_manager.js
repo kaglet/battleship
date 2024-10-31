@@ -18,15 +18,12 @@ const gameManager = (() => {
   const displayWinner = function () {};
 
   setPlayerTypes();
-  console.log(imgToShipMapper);
-
   // On win or lose conditions met display this
   // As the game progresses wherever and as scores are tallied allow it to end
   const endGame = function () {
     const setupManager = require("../setup_manager/setup_manager.js");
     displayWinner();
     setupManager.displaySetupView();
-    console.log(setupManager);
   };
 
   return {

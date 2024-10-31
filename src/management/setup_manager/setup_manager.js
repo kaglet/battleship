@@ -8,6 +8,7 @@ const createButtons = require("../ui_management/components/main/button_options/c
 const shipSelectionPanel = require("../ui_management/components/pictures_display/pictures_display");
 const populateUIBoardFromLogical = require("../populate_ui_board/populate_ui_board");
 const uiGameboard = require("../ui_management/components/main/gameboard/gameboard");
+const resetter = require("./resetter/resetter");
 
 // Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
@@ -15,39 +16,14 @@ const setupManager = (() => {
 This is just for setup, define setup */
   let randomizeBtn, beginBtn;
 
-  const resetter = (function () {
-    const resetP1LogicalBoard = function () {
-      // Delete old and reassign a new gameboard
-      gameManager.player1.playerGameboard = logicalGameboard();
-    };
-
-    const resetP2LogicalBoard = function () {
-      // Delete old and reassign a new gameboard
-      gameManager.player2.playerGameboard = logicalGameboard();
-    };
-
-    const resetP1UIBoard = function () {
-      gameManager.player1UIBoard = uiGameboard();
-    };
-
-    const resetP2UIBoard = function () {
-      gameManager.player2UIBoard = uiGameboard();
-    };
-
-    return {
-      resetP1LogicalBoard,
-      resetP1UIBoard,
-      resetP2LogicalBoard,
-      resetP2UIBoard,
-    };
-  })();
-
   const init = function () {
     beginBtn = document.querySelector("button.begin");
     randomizeBtn = document.querySelector("button.randomize");
     randomizeBtn.addEventListener("click", () => {
       // Delete old and reassign a new gameboard
       resetter.resetP1LogicalBoard();
+      clearUIBoard(gameManager.player1UIBoard);
+      console.log(gameManager.player1.playerGameboard);
       randomizeShipPlacement(
         gameManager.player1UIBoard,
         gameManager.player1.playerGameboard
@@ -55,7 +31,6 @@ This is just for setup, define setup */
     });
 
     beginBtn.addEventListener("click", () => {
-      console.log(setupManager);
       createGameplayView();
       gameManager.player1UIBoard = document.querySelector(".player.board");
       gameManager.player2UIBoard = document.querySelector(".cpu.board");

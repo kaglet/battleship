@@ -11,7 +11,6 @@ const uiController = (() => {
     body.append(header(), main(), footer());
     dragDropController.init();
     setupManager.init();
-    console.log(setupManager);
   };
 
   return { init };

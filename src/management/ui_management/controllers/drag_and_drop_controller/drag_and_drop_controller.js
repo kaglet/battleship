@@ -105,8 +105,6 @@ const dragDropController = (() => {
 
     newShip.orientation = getOrientationFromPreference();
 
-    console.log(gameManager.player1UIBoard);
-
     let adjustedCoords = readjustOutOfBoundsShip(newShip, col, row);
 
     if (adjustedCoords === -1) return -1;
@@ -146,8 +144,6 @@ const dragDropController = (() => {
         imgToShipMapper.getPicFromType(draggableShipType, orientationPreference)
       );
 
-      console.log(e.target);
-
       let row = +e.target.dataset.row;
       let col = +e.target.dataset.col;
 
@@ -160,7 +156,6 @@ const dragDropController = (() => {
     // From ship picture save type for ship object instantiation and assigning a type (to inform the length for highlight) when dropping the object
     draggableShipType = imgToShipMapper.getTypeFromPic(ship1.dataset.url);
     isShipSelected = true;
-    console.log("Chosen ship type is ", draggableShipType);
   };
 
   const init = function () {
