@@ -129,6 +129,7 @@ const dragDropController = (() => {
     let img = document.createElement("div");
     img.classList.add("ship");
     img.style.backgroundImage = `url("${type}")`;
+    img.style.pointerEvents = "none";
 
     return img;
   };

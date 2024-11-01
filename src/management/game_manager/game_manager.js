@@ -1,11 +1,8 @@
 const player = require("../../basic_classes/player");
-const imgToShipMapper = require("../image_to_ship_mapper/image_to_ship_mapper.js");
 
 const gameManager = (() => {
   let player1, player2;
   let player1UIBoard, player2UIBoard;
-
-  let beginBtn;
 
   const setPlayerTypes = function () {
     player1 = player();
@@ -15,19 +12,11 @@ const gameManager = (() => {
     player2.setTypeToBot();
   };
 
-  const displayWinner = function () {};
-
   setPlayerTypes();
   // On win or lose conditions met display this
   // As the game progresses wherever and as scores are tallied allow it to end
-  const endGame = function () {
-    const setupManager = require("../setup_manager/setup_manager.js");
-    displayWinner();
-    setupManager.displaySetupView();
-  };
 
   return {
-    endGame,
     get player1() {
       return player1;
     },
