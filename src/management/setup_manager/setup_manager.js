@@ -1,7 +1,7 @@
 // Pre-game setup
 const randomizeShipPlacement = require("../randomize_ships/randomize_ships");
 const gameManager = require("../game_manager/game_manager");
-const createGameplayView = require("./create_gameplay_view/create_gameplay_view");
+const createGameplayView = require("../game_manager/create_gameplay_view/create_gameplay_view");
 const createButtons = require("../ui_management/components/main/button_options/create_buttons");
 const shipSelectionPanel = require("../ui_management/components/pictures_display/pictures_display");
 const populateUIBoardFromLogical = require("../populate_ui_board/populate_ui_board");

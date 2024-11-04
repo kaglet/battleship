@@ -1,5 +1,5 @@
-const setBoardPlayable = require("../../game_manager/control_passing/set_board_playable/set_board_playable");
-const gameManager = require("../../game_manager/game_manager");
+const setBoardPlayable = require("../control_passing/set_board_playable/set_board_playable");
+const gameManager = require("../game_manager");
 const gameboard = require("../../ui_management/components/main/gameboard/gameboard");
 
 // displayGameplayView
@@ -20,7 +20,7 @@ const createGameplayView = () => {
   backToSetupBtn.textContent = "<-";
 
   backToSetupBtn.addEventListener("click", () => {
-    const setupManager = require("../setup_manager");
+    const setupManager = require("../../setup_manager/setup_manager");
     setupManager.displaySetupView();
   });
 
