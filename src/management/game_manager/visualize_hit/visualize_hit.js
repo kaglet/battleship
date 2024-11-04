@@ -5,6 +5,7 @@ const visualizeHit = (cell, logicalGameboard, col, row) => {
   img.classList.add("ship");
   img.style.backgroundImage = `url("${crossIcon}")`;
   cell.append(img);
+
   if (
     logicalGameboard.grid[col][row] !== "M" &&
     logicalGameboard.grid[col][row].isSunk()

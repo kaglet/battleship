@@ -60,7 +60,7 @@ const gameboardProto = {
       this._grid[x][y].hit();
     }
   },
-  areShipsSunk(x, y) {
+  areShipsSunk() {
     if (this._ships.some((ship) => ship.isSunk() === false)) return false;
 
     return true;

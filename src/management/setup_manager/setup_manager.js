@@ -1,20 +1,14 @@
 // Pre-game setup
-// Controls what happens before game even starts
-const logicalGameboard = require("../../basic_classes/gameboard");
 const randomizeShipPlacement = require("../randomize_ships/randomize_ships");
 const gameManager = require("../game_manager/game_manager");
 const createGameplayView = require("./create_gameplay_view/create_gameplay_view");
 const createButtons = require("../ui_management/components/main/button_options/create_buttons");
 const shipSelectionPanel = require("../ui_management/components/pictures_display/pictures_display");
 const populateUIBoardFromLogical = require("../populate_ui_board/populate_ui_board");
-const uiGameboard = require("../ui_management/components/main/gameboard/gameboard");
 const resetter = require("./resetter/resetter");
 const dragDropController = require("../ui_management/controllers/drag_and_drop_controller/drag_and_drop_controller");
 
-// Do I want certain methods to be differently modular (on different modules)?
 const setupManager = (() => {
-  /* TODO: Decide where to store player data, not here, it is not its responsibility and it is better spread out elsewhere
-This is just for setup, define setup */
   let randomizeBtn, beginBtn;
 
   const init = function () {
@@ -61,7 +55,6 @@ This is just for setup, define setup */
 
   const displaySetupView = function () {
     // TODO: Too complicated, just draw and redraw entire views and have functions that reconstruct main section
-    let p1Board = gameManager.player1UIBoard;
     let mainSection = document.querySelector("section.main");
     let { randomizeBtn, beginBtn } = createButtons();
     let shipsDisplay = shipSelectionPanel();
