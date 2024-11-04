@@ -38,6 +38,8 @@ const setupManager = (() => {
         gameManager.player2UIBoard,
         gameManager.player2.playerGameboard
       );
+
+      gameManager.startGame();
     });
   };
 

@@ -86,7 +86,16 @@ const cpuController = (() => {
     moveAlternatorPos++;
   };
 
-  return { registerFailure, registerSuccess, generateRandomHitCoords };
+  const playTurn = function (gameboard) {
+    let coords = generateRandomHitCoords();
+    gameboard.receiveAttack(coords.x, coords.y);
+    let cell = document.querySelector(
+      `.cell[data-col="${coords.x}"][data-row=${coords.y}]`
+    );
+    visualizeHit(cell, playerGameboard, cell.dataset.col, cell.dataset.row);
+  };
+
+  return { registerFailure, registerSuccess, playTurn };
 })();
 
 module.exports = cpuController;

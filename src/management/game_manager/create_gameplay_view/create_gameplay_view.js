@@ -25,23 +25,12 @@ const createGameplayView = () => {
   });
 
   cpuBoard.classList.add("cpu", "board");
-  playerBoard.classList.add("player", "1");
+  playerBoard.classList.add("player", "1", "board");
 
   mainSection.append(backToSetupBtn, playerBoard, cpuBoard);
 
   mainSection.classList.toggle("in-game");
   mainSection.classList.toggle("in-setup");
-
-  let cpuCells = cpuBoard.children;
-  let cpuCellsArr = Array.from(cpuCells);
-  let p1Cells = playerBoard.children;
-  let p1CellsArr = Array.from(p1Cells);
-
-  setBoardPlayable(p1CellsArr, gameManager.player1.playerGameboard);
-  setBoardPlayable(cpuCellsArr, gameManager.player2.playerGameboard);
-
-  // use populate UI grid from logical grid command and section the function off for use here
-  // we'll need to use this to refresh the grid during play though to indicate any changes
 };
 
 module.exports = createGameplayView;
