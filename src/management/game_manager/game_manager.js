@@ -23,6 +23,7 @@ const gameManager = (() => {
     setBoardPlayable(gameManager.player2UIBoard);
     setBoardUnplayable(gameManager.player1UIBoard);
 
+    activePlayer = gameManager.player1;
     playerController.allowPlayerMoves();
   };
 
@@ -33,7 +34,7 @@ const gameManager = (() => {
       setBoardPlayable(gameManager.player2UIBoard);
 
       cpuController.playTurn(gameManager.player1.playerGameboard);
-      switchTurn();
+      activePlayer = player1;
     } else if (activePlayer === player2) {
       activePlayer = player1;
       setBoardUnplayable(gameManager.player2UIBoard);

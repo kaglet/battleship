@@ -17,7 +17,7 @@ const playerProto = {
     this._type = "H";
   },
   setTypeToBot() {
-    this._type = "V";
+    this._type = "C";
   },
   get type() {
     return this._type;

@@ -1,5 +1,7 @@
 // To control all CPU actions
 
+const gameManager = require("../game_manager/game_manager");
+const visualizeHit = require("../game_manager/visualize_hit/visualize_hit");
 const getRandomNumber = require("../randomize_ships/random/random_num_in_range");
 
 const cpuController = (() => {
@@ -86,13 +88,13 @@ const cpuController = (() => {
     moveAlternatorPos++;
   };
 
-  const playTurn = function (gameboard) {
+  const playTurn = function (gameboard, uiGameboard) {
     let coords = generateRandomHitCoords();
     gameboard.receiveAttack(coords.x, coords.y);
     let cell = document.querySelector(
-      `.cell[data-col="${coords.x}"][data-row=${coords.y}]`
+      `.cell[data-col="${coords.x}"][data-row="${coords.y}"]`
     );
-    visualizeHit(cell, playerGameboard, cell.dataset.col, cell.dataset.row);
+    visualizeHit(cell, gameboard, cell.dataset.col, cell.dataset.row);
   };
 
   return { registerFailure, registerSuccess, playTurn };
