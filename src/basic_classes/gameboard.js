@@ -56,7 +56,7 @@ const gameboardProto = {
     }
   },
   receiveAttack(x, y) {
-    if (!this._grid[x][y]) {
+    if (!this._grid[x][y].ship) {
       this._grid[x][y].markMiss();
     } else {
       this._grid[x][y].markHit();

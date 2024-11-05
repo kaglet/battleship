@@ -7,8 +7,8 @@ const visualizeHit = (cell, logicalGameboard, col, row) => {
   cell.append(img);
 
   if (
-    logicalGameboard.grid[col][row] !== "M" &&
-    logicalGameboard.grid[col][row].isSunk()
+    logicalGameboard.grid[col][row].mark !== "miss" &&
+    logicalGameboard.grid[col][row].ship.isSunk()
   ) {
     // TODO: Perform this step
     console.log("Increase opacity of sunk ship to expose it");
