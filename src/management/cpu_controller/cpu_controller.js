@@ -101,7 +101,7 @@ const cpuController = (() => {
     visualizeHit(cell, gameboard, cell.dataset.col, cell.dataset.row);
   };
 
-  return { registerFailure, registerSuccess, playTurn };
+  return { registerFailure, registerSuccess, playTurn, isMoveInBounds };
 })();
 
 module.exports = cpuController;

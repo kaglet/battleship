@@ -28,6 +28,7 @@ const gameManager = (() => {
   };
 
   const switchTurn = function () {
+    console.log(gameManager.player2.playerGameboard);
     if (activePlayer === player1) {
       activePlayer = player2;
       setBoardUnplayable(gameManager.player2UIBoard);
@@ -37,10 +38,12 @@ const gameManager = (() => {
       let result;
       do {
         result = cpuController.playTurn(gameManager.player1.playerGameboard);
-      } while (result !== -1);
+      } while (result === -1);
 
       // it never sets the board to be playable again so how can the player possibly be able to click
       activePlayer = player1;
+      setBoardUnplayable(gameManager.player1UIBoard);
+      setBoardPlayable(gameManager.player2UIBoard);
     } else if (activePlayer === player2) {
       activePlayer = player1;
       setBoardUnplayable(gameManager.player1UIBoard);
