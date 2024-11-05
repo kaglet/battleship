@@ -1,3 +1,5 @@
+const cell = require("./cell");
+
 const gameboardProto = {
   get ships() {
     return this._ships;
@@ -22,7 +24,7 @@ const gameboardProto = {
 
     if (ship.orientation === "V") {
       for (let j = y; j < y + ship.size; j++) {
-        let elementInPath = this._grid[x][j];
+        let elementInPath = this._grid[x][j].ship;
         if (elementInPath !== undefined && elementInPath.isShip === true) {
           isObstructionFound = true;
           return isObstructionFound;
@@ -30,7 +32,7 @@ const gameboardProto = {
       }
     } else if (ship.orientation === "H") {
       for (let i = x; i < x + ship.size; i++) {
-        let elementInPath = this._grid[i][y];
+        let elementInPath = this._grid[i][y].ship;
         if (elementInPath !== undefined && elementInPath.isShip === true) {
           isObstructionFound = true;
           return isObstructionFound;
@@ -45,19 +47,19 @@ const gameboardProto = {
     this._ships.push(ship);
     if (ship.orientation === "V") {
       for (let j = y; j < y + ship.size; j++) {
-        this._grid[x][j] = ship;
+        this._grid[x][j].ship = ship;
       }
     } else if (ship.orientation === "H") {
       for (let i = x; i < x + ship.size; i++) {
-        this._grid[i][y] = ship;
+        this._grid[i][y].ship = ship;
       }
     }
   },
   receiveAttack(x, y) {
     if (!this._grid[x][y]) {
-      this._grid[x][y] = "M";
+      this._grid[x][y].markMiss();
     } else {
-      this._grid[x][y].hit();
+      this._grid[x][y].markHit();
     }
   },
   areShipsSunk() {
@@ -79,6 +81,12 @@ const gameboard = () => {
   for (let i = 0; i < newGameboard.size; i++) {
     for (let j = 0; j < newGameboard.size; j++) {
       newGameboard.grid[i] = new Array(newGameboard.size);
+    }
+  }
+
+  for (let i = 0; i < newGameboard.size; i++) {
+    for (let j = 0; j < newGameboard.size; j++) {
+      newGameboard.grid[i][j] = cell();
     }
   }
 
