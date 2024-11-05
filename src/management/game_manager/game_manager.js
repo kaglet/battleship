@@ -30,15 +30,21 @@ const gameManager = (() => {
   const switchTurn = function () {
     if (activePlayer === player1) {
       activePlayer = player2;
-      setBoardUnplayable(gameManager.player1UIBoard);
-      setBoardPlayable(gameManager.player2UIBoard);
+      setBoardUnplayable(gameManager.player2UIBoard);
+      setBoardPlayable(gameManager.player1UIBoard);
 
-      cpuController.playTurn(gameManager.player1.playerGameboard);
+      // Allow computer to play until it gets a successful move result
+      let result;
+      do {
+        result = cpuController.playTurn(gameManager.player1.playerGameboard);
+      } while (result !== -1);
+
+      // it never sets the board to be playable again so how can the player possibly be able to click
       activePlayer = player1;
     } else if (activePlayer === player2) {
       activePlayer = player1;
-      setBoardUnplayable(gameManager.player2UIBoard);
-      setBoardPlayable(gameManager.player1UIBoard);
+      setBoardUnplayable(gameManager.player1UIBoard);
+      setBoardPlayable(gameManager.player2UIBoard);
     }
   };
   // On win or lose conditions met display this

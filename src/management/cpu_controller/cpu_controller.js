@@ -90,6 +90,10 @@ const cpuController = (() => {
 
   const playTurn = function (gameboard, uiGameboard) {
     let coords = generateRandomHitCoords();
+    if (!isMoveInBounds(coords.x) || !isMoveInBounds(coords.y)) {
+      return -1;
+    }
+
     gameboard.receiveAttack(coords.x, coords.y);
     let cell = document.querySelector(
       `.cell[data-col="${coords.x}"][data-row="${coords.y}"]`
