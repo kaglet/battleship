@@ -17,10 +17,14 @@ const playerController = (() => {
         if (
           !cpuController.isMoveInBounds(cell.dataset.col) ||
           !cpuController.isMoveInBounds(cell.dataset.row) ||
-          cpuLogicalBoard.grid[cell.dataset.col][cell.dataset.row] === "M"
+          cpuLogicalBoard.grid[cell.dataset.col][cell.dataset.row].mark ===
+            "miss" ||
+          cpuLogicalBoard.grid[cell.dataset.col][cell.dataset.row].mark ===
+            "hit"
         ) {
           return;
         }
+
         cpuLogicalBoard.receiveAttack(cell.dataset.col, cell.dataset.row);
         visualizeHit(cell, cpuLogicalBoard, cell.dataset.col, cell.dataset.row);
         if (cpuLogicalBoard.areShipsSunk()) {

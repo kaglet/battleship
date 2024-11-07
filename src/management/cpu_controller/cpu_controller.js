@@ -11,7 +11,7 @@ const cpuController = (() => {
   let moveAlternatorPos = -1;
 
   const isMoveInBounds = function (val) {
-    return val > 0 && val <= 9;
+    return val >= 0 && val <= 9;
   };
 
   const generateRandomHitCoords = function () {

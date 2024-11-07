@@ -74,7 +74,7 @@ test("Receive attack on unoccupied spot", () => {
   let x = 3;
   let y = 7;
   gameboardInstance.receiveAttack(x, y);
-  expect(gameboardInstance.grid[x][y]).toBe("M");
+  expect(gameboardInstance.grid[x][y]).toBe("miss");
 });
 
 test("Receive attack on occupied spot", () => {
