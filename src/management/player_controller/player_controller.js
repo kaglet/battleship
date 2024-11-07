@@ -27,13 +27,14 @@ const playerController = (() => {
 
         cpuLogicalBoard.receiveAttack(cell.dataset.col, cell.dataset.row);
         visualizeHit(cell, cpuLogicalBoard, cell.dataset.col, cell.dataset.row);
+
         if (cpuLogicalBoard.areShipsSunk()) {
           const setupManager = require("../setup_manager/setup_manager");
           displayWinner("Player 2");
           setupManager.displaySetupView();
+        } else {
+          gameManager.switchTurn();
         }
-
-        gameManager.switchTurn();
       });
     });
   };
