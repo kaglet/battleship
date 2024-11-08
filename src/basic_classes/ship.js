@@ -93,6 +93,7 @@ const shipProto = {
         which should be impossible unless it is registered to be hit twice.
         Nowhere in code must you allow this. Multiple hits should be blocked anyway. 
         This affirms to check if the block is not present or is circumvented. */
+      // This must never be gotten to but if it does this catches that case
       throw new Error("Ship cannot be hit multiple times");
     }
   },
