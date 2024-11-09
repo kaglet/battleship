@@ -48,14 +48,6 @@ const cpuController = (() => {
               y = value;
               x = lastMoveX;
               nextMovesPossible[3]++;
-              // This won't keep going if last move is down and is successful you should only reset on a failure
-              // I reset all the time which is the problem
-              // On failure check if the counter is 0 for the move we are on to then reset
-              lastMovesWereASuccess = false;
-              moveAlternatorPos = 0;
-              for (let i = 0; i < nextMovesPossible.length; i++) {
-                nextMovesPossible[i] = -1;
-              }
               // By this point you must have gotten the result you want resulting in a sunken ship
               // TODO: So no need to reset there should be some external signal to reset such as a sunken ship meaning last move success register must be removed to start over
               break;
@@ -66,6 +58,8 @@ const cpuController = (() => {
         } else {
           /* Alternate to the next move keeping it left to right then up to down 
           if travelling in previous single direction failed to yield a sunk result */
+
+          // on successful sinking change move alternator too to reset it otherwise it continues from the last direction
           i++;
           moveAlternatorPos = i;
         }
@@ -103,6 +97,17 @@ const cpuController = (() => {
   const registerFailure = function () {
     // alternate direction (try another direction)
     moveAlternatorPos++;
+    // Reset only if last move down failed as it went on by some chance and went on to next move alternated which is non-existent so reset
+    if (moveAlternatorPos === 5) {
+      // This won't keep going if last move is down and is successful you should only reset on a failure
+      // I reset all the time which is the problem
+      // On failure check if the counter is 0 for the move we are on to then reset
+      lastMovesWereASuccess = false;
+      moveAlternatorPos = 0;
+      for (let i = 0; i < nextMovesPossible.length; i++) {
+        nextMovesPossible[i] = -1;
+      }
+    }
   };
 
   // have computer play but then register a hit as feedback for its future moves, to adjust them, then step through the code
