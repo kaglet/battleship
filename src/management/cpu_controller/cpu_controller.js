@@ -1,5 +1,6 @@
 // To control all CPU actions
 
+const displayWinner = require("../game_manager/display_winner/display_winner");
 const visualizeHit = require("../game_manager/visualize_hit/visualize_hit");
 const getRandomNumber = require("../randomize_ships/random/random_num_in_range");
 
@@ -79,8 +80,8 @@ const cpuController = (() => {
 
     nextMovesPossible[0] = x - 1;
     nextMovesPossible[1] = x + 1;
-    nextMovesPossible[2] = y + 1;
-    nextMovesPossible[3] = y - 1;
+    nextMovesPossible[2] = y - 1;
+    nextMovesPossible[3] = y + 1;
 
     return { x, y };
   };
@@ -137,7 +138,7 @@ const cpuController = (() => {
 
     if (logicalCell.mark === "hit") {
       registerSuccess();
-    } else {
+    } else if (logicalCell.mark === "miss" && lastMovesWereASuccess === true) {
       registerFailure();
     }
 
