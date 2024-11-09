@@ -48,7 +48,14 @@ const cpuController = (() => {
               y = value;
               x = lastMoveX;
               nextMovesPossible[3]++;
+              // This won't keep going if last move is down and is successful you should only reset on a failure
+              // I reset all the time which is the problem
+              // On failure check if the counter is 0 for the move we are on to then reset
               lastMovesWereASuccess = false;
+              moveAlternatorPos = 0;
+              for (let i = 0; i < nextMovesPossible.length; i++) {
+                nextMovesPossible[i] = -1;
+              }
               // By this point you must have gotten the result you want resulting in a sunken ship
               // TODO: So no need to reset there should be some external signal to reset such as a sunken ship meaning last move success register must be removed to start over
               break;
