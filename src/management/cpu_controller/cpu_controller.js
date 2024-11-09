@@ -114,6 +114,7 @@ const cpuController = (() => {
   // you can manufacture it to hit every time (i.e. to know initial coordinates of where to hit based on ship manager but only the first coordinate after that it depends on succession code)
   const playTurn = function (gameboard, uiGameboard) {
     let coords = generateRandomHitCoords();
+    // TODO: Check if coordinate has already been used for sunk ship and allow to play again
     if (!isMoveInBounds(coords.x) || !isMoveInBounds(coords.y)) {
       return -1;
     }
@@ -138,6 +139,10 @@ const cpuController = (() => {
       // reset to try new random moves
       // TODO: resetToRandomMoves should be variable name with opposite meaning to last variable meaning it must become true instead of false like below
       lastMovesWereASuccess = false;
+      moveAlternatorPos = 0;
+      for (let i = 0; i < nextMovesPossible.length; i++) {
+        nextMovesPossible[i] = -1;
+      }
     }
   };
 
