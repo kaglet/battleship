@@ -85,6 +85,14 @@ const cpuController = (() => {
     return { x, y };
   };
 
+  const resetMoveDirections = function () {
+    lastMovesWereASuccess = false;
+    moveAlternatorPos = 0;
+    for (let i = 0; i < nextMovesPossible.length; i++) {
+      nextMovesPossible[i] = -1;
+    }
+  };
+
   // Record last move as hit
   const registerSuccess = function () {
     /* Since we keep it as it is simply delete this function registering success since you do nothing, 
@@ -102,11 +110,7 @@ const cpuController = (() => {
       // This won't keep going if last move is down and is successful you should only reset on a failure
       // I reset all the time which is the problem
       // On failure check if the counter is 0 for the move we are on to then reset
-      lastMovesWereASuccess = false;
-      moveAlternatorPos = 0;
-      for (let i = 0; i < nextMovesPossible.length; i++) {
-        nextMovesPossible[i] = -1;
-      }
+      resetMoveDirections();
     }
   };
 
@@ -115,7 +119,11 @@ const cpuController = (() => {
   const playTurn = function (gameboard, uiGameboard) {
     let coords = generateRandomHitCoords();
     // TODO: Check if coordinate has already been used for sunk ship and allow to play again
-    if (!isMoveInBounds(coords.x) || !isMoveInBounds(coords.y)) {
+    if (
+      !isMoveInBounds(coords.x) ||
+      !isMoveInBounds(coords.y) ||
+      gameboard.grid[coords.x][coords.y].mark
+    ) {
       return -1;
     }
 
@@ -138,11 +146,13 @@ const cpuController = (() => {
     if (ship && ship.isSunk()) {
       // reset to try new random moves
       // TODO: resetToRandomMoves should be variable name with opposite meaning to last variable meaning it must become true instead of false like below
-      lastMovesWereASuccess = false;
-      moveAlternatorPos = 0;
-      for (let i = 0; i < nextMovesPossible.length; i++) {
-        nextMovesPossible[i] = -1;
-      }
+      resetMoveDirections();
+    }
+
+    if (gameboard.areShipsSunk()) {
+      const setupManager = require("../setup_manager/setup_manager");
+      displayWinner("Player 2");
+      setupManager.displaySetupView();
     }
   };
 
@@ -151,6 +161,7 @@ const cpuController = (() => {
     registerSuccess,
     playTurn,
     isMoveInBounds,
+    resetMoveDirections,
   };
 })();
 

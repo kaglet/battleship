@@ -23,6 +23,7 @@ const gameManager = (() => {
     setBoardPlayable(gameManager.player2UIBoard);
     setBoardUnplayable(gameManager.player1UIBoard);
 
+    cpuController.resetMoveDirections();
     activePlayer = gameManager.player1;
     playerController.allowPlayerMoves();
   };
