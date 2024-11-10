@@ -16,7 +16,20 @@ const cpuController = (() => {
     return val >= 0 && val <= 9;
   };
 
-  const generateRandomHitCoords = function () {
+  const intendedMoveIsMarked = function (x, y, gameboard) {
+    let logicalCell = gameboard.grid[x][y];
+
+    if (
+      logicalCell.mark === "hit" ||
+      (logicalCell.mark === "miss" && lastMovesWereASuccess === true)
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const generateRandomHitCoords = function (gameboard) {
     let x, y;
 
     x = getRandomNumber(0, 9);
@@ -34,17 +47,23 @@ const cpuController = (() => {
               x = value;
               y = lastMoveY;
               nextMovesPossible[0]--;
-              break;
+              if (!intendedMoveIsMarked(x, y, gameboard)) {
+                break;
+              }
             case 1:
               x = value;
               y = lastMoveY;
               nextMovesPossible[1]++;
-              break;
+              if (!intendedMoveIsMarked(x, y, gameboard)) {
+                break;
+              }
             case 2:
               y = value;
               x = lastMoveX;
               nextMovesPossible[2]--;
-              break;
+              if (!intendedMoveIsMarked(x, y, gameboard)) {
+                break;
+              }
             case 3:
               y = value;
               x = lastMoveX;
@@ -67,12 +86,17 @@ const cpuController = (() => {
       }
     }
 
-    if (usedKnownCoordinates === false) {
+    if (usedKnownCoordinates !== 2) {
       const gameManager = require("../game_manager/game_manager");
       x = gameManager.player1.playerGameboard.ships[0].x;
       y = gameManager.player1.playerGameboard.ships[0].y;
       // TODO: does not reset across rounds therefore needs page reset to get it each time
-      usedKnownCoordinates = true;
+
+      if (usedKnownCoordinates === 1) {
+        x = gameManager.player1.playerGameboard.ships[0].x - 1;
+        y = gameManager.player1.playerGameboard.ships[0].y;
+      }
+      usedKnownCoordinates++;
     }
 
     lastMoveX = x;
@@ -118,7 +142,7 @@ const cpuController = (() => {
   // have computer play but then register a hit as feedback for its future moves, to adjust them, then step through the code
   // you can manufacture it to hit every time (i.e. to know initial coordinates of where to hit based on ship manager but only the first coordinate after that it depends on succession code)
   const playTurn = function (gameboard, uiGameboard) {
-    let coords = generateRandomHitCoords();
+    let coords = generateRandomHitCoords(gameboard);
     // TODO: Check if coordinate has already been used for sunk ship and allow to play again
     if (
       !isMoveInBounds(coords.x) ||
