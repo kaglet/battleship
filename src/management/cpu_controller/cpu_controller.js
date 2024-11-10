@@ -50,6 +50,8 @@ const cpuController = (() => {
               if (!intendedMoveIsMarked(x, y, gameboard)) {
                 break;
               }
+
+              moveAlternatorPos = 0;
             case 1:
               x = value;
               y = lastMoveY;
@@ -57,6 +59,8 @@ const cpuController = (() => {
               if (!intendedMoveIsMarked(x, y, gameboard)) {
                 break;
               }
+
+              moveAlternatorPos = 1;
             case 2:
               y = value;
               x = lastMoveX;
@@ -64,10 +68,12 @@ const cpuController = (() => {
               if (!intendedMoveIsMarked(x, y, gameboard)) {
                 break;
               }
+              moveAlternatorPos = 2;
             case 3:
               y = value;
               x = lastMoveX;
               nextMovesPossible[3]++;
+              moveAlternatorPos = 3;
               // By this point you must have gotten the result you want resulting in a sunken ship
               // TODO: So no need to reset there should be some external signal to reset such as a sunken ship meaning last move success register must be removed to start over
               break;
