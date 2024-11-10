@@ -10,7 +10,7 @@ const cpuController = (() => {
 
   let nextMovesPossible = [-1, -1, -1, -1];
   let moveAlternatorPos = 0;
-  let usedKnownCoordinates = false;
+  let usedKnownCoordinates = 0;
 
   const isMoveInBounds = function (val) {
     return val >= 0 && val <= 9;
@@ -41,39 +41,40 @@ const cpuController = (() => {
         // If move is in bounds take it until it results in miss then move onto another direction
         // So these actions are on assumption that it is a hit
         if (isMoveInBounds(nextMovesPossible[i])) {
-          let value = nextMovesPossible[i];
+          // let value = nextMovesPossible[i];
           switch (i) {
             case 0:
-              x = value;
+              x = nextMovesPossible[0];
               y = lastMoveY;
               nextMovesPossible[0]--;
+              i = moveAlternatorPos = 0;
               if (!intendedMoveIsMarked(x, y, gameboard)) {
                 break;
               }
 
-              moveAlternatorPos = 0;
             case 1:
-              x = value;
+              x = nextMovesPossible[1];
               y = lastMoveY;
               nextMovesPossible[1]++;
+              i = moveAlternatorPos = 1;
               if (!intendedMoveIsMarked(x, y, gameboard)) {
                 break;
               }
 
-              moveAlternatorPos = 1;
             case 2:
-              y = value;
+              y = nextMovesPossible[2];
               x = lastMoveX;
               nextMovesPossible[2]--;
+              i = moveAlternatorPos = 2;
               if (!intendedMoveIsMarked(x, y, gameboard)) {
                 break;
               }
-              moveAlternatorPos = 2;
+
             case 3:
-              y = value;
+              y = nextMovesPossible[3];
               x = lastMoveX;
               nextMovesPossible[3]++;
-              moveAlternatorPos = 3;
+              i = moveAlternatorPos = 3;
               // By this point you must have gotten the result you want resulting in a sunken ship
               // TODO: So no need to reset there should be some external signal to reset such as a sunken ship meaning last move success register must be removed to start over
               break;
@@ -97,11 +98,6 @@ const cpuController = (() => {
       x = gameManager.player1.playerGameboard.ships[0].x;
       y = gameManager.player1.playerGameboard.ships[0].y;
       // TODO: does not reset across rounds therefore needs page reset to get it each time
-
-      if (usedKnownCoordinates === 1) {
-        x = gameManager.player1.playerGameboard.ships[0].x - 1;
-        y = gameManager.player1.playerGameboard.ships[0].y;
-      }
       usedKnownCoordinates++;
     }
 
