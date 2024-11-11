@@ -24,6 +24,9 @@ const dragDropController = (() => {
   };
 
   const getOrientationFromPreference = function () {
+    orientationPreference =
+      document.querySelector("button.direction").textContent;
+
     return orientationPreference;
   };
 
@@ -142,7 +145,10 @@ const dragDropController = (() => {
   const dropShip = function (e) {
     if (isShipSelected === true) {
       let shipDroppedCopy = getShipImgFromChosenType(
-        imgToShipMapper.getPicFromType(draggableShipType, orientationPreference)
+        imgToShipMapper.getPicFromType(
+          draggableShipType,
+          getOrientationFromPreference()
+        )
       );
 
       let row = +e.target.dataset.row;

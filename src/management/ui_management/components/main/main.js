@@ -18,7 +18,19 @@ const main = () => {
   playerGameboard.classList.add("player", "1");
   gameManager.player1UIBoard = playerGameboard;
 
-  container.append(playerGameboard, randomizeBtn, beginBtn);
+  let directionControl = document.createElement("button");
+  directionControl.textContent = "V";
+  directionControl.classList.add("direction");
+  directionControl.classList.toggle("vertical");
+
+  directionControl.addEventListener("click", () => {
+    directionControl.textContent =
+      directionControl.textContent === "H" ? "V" : "H";
+    directionControl.classList.toggle("vertical");
+    directionControl.classList.toggle("horizontal");
+  });
+
+  container.append(directionControl, playerGameboard, randomizeBtn, beginBtn);
   mainDisplay.append(container);
 
   mainDisplay.classList.toggle("in-setup");

@@ -93,14 +93,6 @@ const cpuController = (() => {
       }
     }
 
-    if (usedKnownCoordinates !== 2) {
-      const gameManager = require("../game_manager/game_manager");
-      x = gameManager.player1.playerGameboard.ships[0].x;
-      y = gameManager.player1.playerGameboard.ships[0].y;
-      // TODO: does not reset across rounds therefore needs page reset to get it each time
-      usedKnownCoordinates++;
-    }
-
     lastMoveX = x;
     lastMoveY = y;
 
