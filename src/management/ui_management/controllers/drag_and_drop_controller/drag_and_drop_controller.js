@@ -127,7 +127,7 @@ const dragDropController = (() => {
   // Create ship img to drop down from chosen url
   const getShipImgFromChosenType = (type) => {
     let img = document.createElement("div");
-    img.classList.add("ship");
+    img.classList.add("ship", "img");
     img.style.backgroundImage = `url("${type}")`;
     img.style.pointerEvents = "none";
 
