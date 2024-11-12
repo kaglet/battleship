@@ -11,10 +11,10 @@ const shipSelectionPanel = () => {
   let ships = [carrier, battleship, patrolBoat, destroyer, submarine];
 
   ships.forEach((ship) => {
-    let img = document.createElement("img");
+    let img = document.createElement("div");
     img.style.backgroundImage = `url("${ship}")`;
     img.setAttribute("data-url", img.style.backgroundImage);
-    img.classList.add("ship");
+    img.classList.add("ship", "img");
     shipsDisplay.append(img);
   });
 

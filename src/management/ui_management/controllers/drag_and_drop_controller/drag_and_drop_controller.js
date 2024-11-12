@@ -168,7 +168,7 @@ const dragDropController = (() => {
   const init = function () {
     clearSelection();
 
-    let ships = document.querySelectorAll(".ships img");
+    let ships = document.querySelectorAll(".ships .img");
     ships.forEach((ship) => {
       ship.addEventListener("mousedown", () => markChosenShip(ship));
     });
