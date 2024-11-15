@@ -21,8 +21,31 @@
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+rect {
+  clip-path: url(#wave);
+}
+
+.waves {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  width: 120%;
+  height: 100%;
+  transform: translateX(-10%);
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(-10%);
+  }
+
+}
+
 body {
-  background-color: #0c1432;
+  overflow: hidden;
+  position: relative;
+  /* background-color: #0c1432; */
   font-family: var(--main-font-family);
   min-height: 100vh;
   padding: 0.5rem 2.5rem;
