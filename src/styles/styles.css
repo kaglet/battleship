@@ -105,7 +105,7 @@ h1, footer {
 }
 
 .cell {
-  outline: 3.5px solid rgb(253, 254, 255, 0.5);
+  outline: 2px solid rgb(253, 254, 255, 0.5);
   background-color: rgb(74, 118, 207, 0.5);
   box-shadow: 2px 2px 10px rgb(2, 6, 15);
 }
@@ -154,7 +154,7 @@ h1, footer {
 
 button {
   border-radius: 0.3rem;
-  background-color: #92140C;
+  background-color: #c8271b;
   box-shadow: 2px 2px 10px rgb(2, 6, 15);
   padding: 0.3rem 2rem;
   text-transform: capitalize;
