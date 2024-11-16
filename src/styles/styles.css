@@ -62,7 +62,7 @@ svg {
 body {
   overflow: hidden;
   position: relative;
-  /* background-color: #0c1432; */
+  background-color: #040c14;
   font-family: var(--main-font-family);
   min-height: 100vh;
   padding: 0.5rem 2.5rem;
@@ -105,9 +105,9 @@ h1, footer {
 }
 
 .cell {
-  outline: 2px solid rgb(253, 254, 255, 0.5);
+  border: 3px solid rgba(3, 16, 29);
   background-color: rgb(74, 118, 207, 0.5);
-  box-shadow: 2px 2px 10px rgb(2, 6, 15);
+  /* box-shadow: 2px 2px 10px rgb(2, 6, 15); */
 }
 
 .ships {
