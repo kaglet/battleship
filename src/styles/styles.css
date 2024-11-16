@@ -84,6 +84,7 @@ h1, footer {
 
 .board {
   display: grid;
+  gap: 0.1rem;
   grid-template: repeat(10, 1fr) / repeat(10, 1fr);
   width: min-content;
   height: 25rem;
@@ -105,8 +106,9 @@ h1, footer {
 }
 
 .cell {
-  border: 3px solid rgba(3, 16, 29);
-  background-color: rgb(74, 118, 207, 0.5);
+  /* border: 3px solid rgba(3, 16, 29); */
+  border-radius: 0.05rem;
+  background-color: rgb(18, 41, 86);
   /* box-shadow: 2px 2px 10px rgb(2, 6, 15); */
 }
 
